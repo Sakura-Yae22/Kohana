@@ -1,0 +1,16 @@
+{
+  "author": "numselli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "index": "index.js"
+  },
+  "dependencies": {
+    "eris-sharder": "^1.10.0",
+    "node-cron": "^2.0.3",
+    "pg": "^8.5.1"
+  },
+  "name": "disboard-bump-reminder",
+  "license": "ISC"
+}
