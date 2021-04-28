@@ -1,16 +1,17 @@
 {
   "author": "numselli",
   "version": "1.0.0",
-  "description": "",
+  "description": "Never miss out on bumping disboard",
   "main": "index.js",
   "scripts": {
     "index": "index.js"
   },
   "dependencies": {
     "eris-sharder": "^1.10.0",
-    "node-cron": "^2.0.3",
-    "pg": "^8.5.1"
+    "node-cron": "^3.0.0",
+    "pg": "^8.6.0",
+    "puppeteer": "^9.0.0"
   },
-  "name": "disboard-bump-reminder",
+  "name": "bump-reminders",
   "license": "ISC"
 }
