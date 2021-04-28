@@ -2,18 +2,6 @@ const config = require('./config.json'), Sharder = require('eris-sharder').Maste
 let pgclient;
 types.setTypeParser(1700, 'text', parseFloat);
 
-function pgClientConnect(){
-	pgclient = new PG(config.Postgrelogin);
-	pgclient.connect(err => {
-		if (err) {
-			console.error(`[${new Date().toLocaleString()}] `, err.stack);
-		} else {
-			console.log(`[${new Date().toLocaleString()}] postgres connected and ready`);
-		}
-	})
-}
-
-pgClientConnect()
 new Sharder(config.botToken, "/main.js", {
 	stats: false,
 	debug: true,
@@ -43,6 +31,17 @@ new Sharder(config.botToken, "/main.js", {
 	}
 })
 
+function pgClientConnect(){
+	pgclient = new PG(config.Postgrelogin);
+	pgclient.connect(err => {
+		if (err) {
+			console.error(`[${new Date().toLocaleString()}] `, err.stack);
+		} else {
+			console.log(`[${new Date().toLocaleString()}] postgres connected and ready`);
+		}
+	})
+}
+pgClientConnect()
 exports.query = function query(statement) {
 	return new Promise((resolve, reject) => {
 		pgclient.query(statement, (err, res) => {
@@ -56,3 +55,5 @@ exports.query = function query(statement) {
 		return err
 	})
 }
+
+exports.config = config;
