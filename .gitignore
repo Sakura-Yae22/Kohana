@@ -107,3 +107,5 @@ package-lock.json
 notes.txt
 config.json
 config.json
+Postgres/
+.DS_Store
