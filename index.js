@@ -7,7 +7,7 @@ new Sharder(config.botToken, "/main.js", {
 	debug: true,
 	guildsPerShard: 1500,
 	shards: config.MaxShards,
-	name: "Bump Reminders",
+	name: "Kohana",
 	clientOptions: {
 		messageLimit: 150,
 		restMode: true,

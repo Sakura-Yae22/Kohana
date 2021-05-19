@@ -1,5 +1,5 @@
 // require libs and files
-const  {query, config} = require('./index'), {Base} = require("eris-sharder"), puppeteer = require("puppeteer"), cron = require('node-cron'), fs = require('fs');
+const  {query, config} = require('./index'), {Base} = require("eris-sharder"), puppeteer = require("puppeteer"), cron = require('node-cron'), fs = require('fs'), nekoslife = require("nekos.life"), nekolife = new nekoslife();;
 let sharder, runCmds = {};
 
 module.exports = class Class extends Base{
@@ -24,6 +24,20 @@ module.exports = class Class extends Base{
                 }
             }
         })()
+        // init commands
+//         (async function initcommans (){
+//             (await fs.readdir('commands')).forEach(async catagory=>{
+//                 if (catagory.startsWith('.')) return
+//                 (await fs.readdir(`commands/${catagory}`)).forEach(command=>{
+//                     if (command.startsWith('.')) return
+//                     let {commandLogic, help} = require(`./commands/${catagory}/${command}`)
+//                     runCmds[command.split(".js")[0]] = {commandLogic, help, catagory}
+//                 })
+//             })
+
+//             // set status
+//             sharder.bot.editStatus("dnd", {name: `${config.botPrefix}help`,type: 0});
+//         })()
 
         // set status
         sharder.bot.editStatus("dnd", { name: `${config.botPrefix}help`, type: 0 });
@@ -68,7 +82,7 @@ module.exports = class Class extends Base{
                 var commands = ((message.content.slice((config.botPrefix).length).trim()).split(" "))
                 
                 message.content = commands.join(" ")
-                runCmds[commands[0]].commandLogic({sendMessage, query, makeserverLB, getuser, commands, config, message, sharder, runCmds})
+                runCmds[commands[0]].commandLogic({sendMessage, query, makeserverLB, getuser, commands, config, message, sharder, runCmds, nekolife, randomColor})
             }
         });
         
@@ -110,7 +124,7 @@ module.exports = class Class extends Base{
                 (await query(`SELECT * FROM ${(durration=="allTime") ? "users": "weeklylb"} WHERE serverid = '${serverID}' order by bumps desc fetch first 15 rows only`))
                 .map(async (user, index)=>{
                     totalBumps+=user.bumps
-                    var {username, discriminator} = await getuser(user.userid, message);
+                    var {username, discriminator} = await getuser(user.userid);
                     return `<tr><th>${index+1}</th><th>${username}#${discriminator}</th><th>${user.bumps}</th></tr>`
                 })
             ).then(data=>{
@@ -137,10 +151,14 @@ module.exports = class Class extends Base{
             }
         }
         
-        async function getuser(userid, message){
-            var cachedUser = message ? message.channel.guild.members.get(userid) : false
-            var returnobj = cachedUser ?  cachedUser.user : await sharder.bot.getRESTUser(userid)
-            return returnobj
+        // get user from cache fist then get from discord api
+        async function getuser(userid){
+            return sharder.bot.users.get(userid) || await sharder.bot.getRESTUser(userid)
+        }
+
+        // random hex code
+        async function randomColor(){
+            return Math.floor(Math.random() * 16777214) + 1
         }
     }
 }
