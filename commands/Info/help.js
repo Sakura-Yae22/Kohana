@@ -1,4 +1,4 @@
-const {botPrefix, links} = require('./config.json');
+const {botPrefix, links} = require('../../config.json');
 
 
 module.exports = {
