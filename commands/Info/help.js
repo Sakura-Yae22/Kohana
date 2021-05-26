@@ -1,8 +1,6 @@
 module.exports = {
     "commandLogic": async function commandLogic(itemsToImport) {
-        let {message, sendMessage, runCmds, config} = itemsToImport;
-
-        // sendMessage(message.channel.id, )
+        let {message, runCmds, config} = itemsToImport;
 
         let help = {
             "embed": {
@@ -36,7 +34,7 @@ module.exports = {
                 }
             }
         }
-        sendMessage(message.channel.id, help)
+        message.channel.createMessage( help).catch(err => console.error("Cannot send messages to this channel", err));
     },
     "help":[
         { "name": "__Usage__", "value": "Lists all commands.\n```??botPrefix??help```\nGives information about a specific command.\n```??botPrefix??help <command>```" }

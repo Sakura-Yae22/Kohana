@@ -11,36 +11,18 @@ module.exports = class Class extends Base{
 
         // init commands
         (async function initcommans (){
-            let catagorys = fs.readdirSync('commands')
-            for await (const catagory of catagorys){
-                if (catagory != ".DS_Store"){
-                    let caragoryCommands = fs.readdirSync(`commands/${catagory}`)
-                    for await (const command of caragoryCommands){
-                        if (command != ".DS_Store"){
-                            let {commandLogic,help} = await require(`./commands/${catagory}/${command}`)
-                            runCmds[command.split(".js")[0]] = {commandLogic, help, catagory}
-                        }
-                    }
-                }
-            }
+            (await fs.readdir('commands')).forEach(async catagory=>{
+                if (catagory.startsWith('.')) return
+                (await fs.readdir(`commands/${catagory}`)).forEach(command=>{
+                    if (command.startsWith('.')) return
+                    let {commandLogic, help} = require(`./commands/${catagory}/${command}`)
+                    runCmds[command.split(".js")[0]] = {commandLogic, help, catagory}
+                })
+            })
+
+            // set status
+            sharder.bot.editStatus("dnd", {name: `${config.botPrefix}help`,type: 0});
         })()
-        // init commands
-//         (async function initcommans (){
-//             (await fs.readdir('commands')).forEach(async catagory=>{
-//                 if (catagory.startsWith('.')) return
-//                 (await fs.readdir(`commands/${catagory}`)).forEach(command=>{
-//                     if (command.startsWith('.')) return
-//                     let {commandLogic, help} = require(`./commands/${catagory}/${command}`)
-//                     runCmds[command.split(".js")[0]] = {commandLogic, help, catagory}
-//                 })
-//             })
-
-//             // set status
-//             sharder.bot.editStatus("dnd", {name: `${config.botPrefix}help`,type: 0});
-//         })()
-
-        // set status
-        sharder.bot.editStatus("dnd", { name: `${config.botPrefix}help`, type: 0 });
         
         // decide what to do on message create
         sharder.bot.on('messageCreate', async (message) => {  
@@ -69,6 +51,7 @@ module.exports = class Class extends Base{
                 }else if (message.embeds[0].description.includes("Please wait another") && !message.embeds[0].description.includes("until you can bump")){                    
                     var timetobump = new Date(new Date().getTime() + (parseInt(((message.embeds[0].description.split("another"))[1].split("minutes")[0]).replace(" ", "").replace(" ", ""))) * 60000)
                     var guild = await query(`SELECT * FROM guilds WHERE serverid = '${message.channel.guild.id}'`)
+                    
                     sendMessage(message.channel.id, { "embed": { "title": `Bump Failed`, "color": 15420513, "timestamp": new Date(timetobump).toISOString(), "footer": { "text": `Bump On: ` } } });
                     query((guild.length === 0) ? `INSERT INTO guilds (serverid, channelid, timetobump, bumpmessage) VALUES ('${message.channel.guild.id}', '${message.channel.id}', '${timetobump}', '${config.bumpMessage}')` : `UPDATE guilds SET channelid = '${message.channel.id}', timetobump = '${timetobump}' WHERE serverid = '${message.channel.guild.id}'`);
                 }
@@ -82,7 +65,7 @@ module.exports = class Class extends Base{
                 var commands = ((message.content.slice((config.botPrefix).length).trim()).split(" "))
                 
                 message.content = commands.join(" ")
-                runCmds[commands[0]].commandLogic({sendMessage, query, makeserverLB, getuser, commands, config, message, sharder, runCmds, randomColor})
+                runCmds[commands[0]].commandLogic({query, makeserverLB, commands, config, message, sharder, runCmds, randomColor})
             }
         });
         
@@ -143,12 +126,9 @@ module.exports = class Class extends Base{
         }
         
         async function sendMessage(channelID, content, file) {
-            var Channel = sharder.bot.getChannel(channelID), canSend = (Channel.permissionsOf(sharder.bot.user.id).has("sendMessages") && Channel.permissionsOf(sharder.bot.user.id).has("embedLinks") && Channel.permissionsOf(sharder.bot.user.id).has("readMessages"))
-            if (canSend){
-                let sentMessage = await sharder.bot.createMessage(channelID, content, file)
-                .catch(err => console.error("Cannot send messages to this channel", err));
-                return sentMessage
-            }
+            let sentMessage = await sharder.bot.createMessage(channelID, content, file)
+            .catch(err => console.error("Cannot send messages to this channel", err));
+            return sentMessage
         }
         
         // get user from cache fist then get from discord api
