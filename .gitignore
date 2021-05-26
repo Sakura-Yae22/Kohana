@@ -109,3 +109,4 @@ config.json
 
 .DS_Store
 Postgres/
+config.json
