@@ -1,11 +1,14 @@
+const {botPrefix, links} = require('./config.json');
+
+
 module.exports = {
     "commandLogic": async function commandLogic(itemsToImport) {
-        let {message, runCmds, config} = itemsToImport;
+        let {message, runCmds} = itemsToImport;
 
         let help = {
             "embed": {
                 "title": "Help", 
-                "description": `Below is a list of my commands.\nFor more details on any command use **${config.botPrefix}help <command>**\nFor further help you can join the [support server](${config.links["Support server"]})`, 
+                "description": `Below is a list of my commands.\nFor more details on any command use **${botPrefix}help <command>**\nFor further help you can join the [support server](${links["Support server"]})`, 
                 "fields": [],
                 "color": 5747894, 
                 "timestamp": new Date().toISOString()
@@ -15,7 +18,7 @@ module.exports = {
         let commandHelp = message.content.split(" ")[1]
 
         if (Object.keys(runCmds).includes(commandHelp)){
-            help.embed.fields = JSON.parse(JSON.stringify(runCmds[commandHelp].help).split("??botPrefix??").join(config.botPrefix))
+            help.embed.fields = JSON.parse(JSON.stringify(runCmds[commandHelp].help).split("??botPrefix??").join(botPrefix))
             help.embed.description=``;
         }else{
             for (const command in runCmds){

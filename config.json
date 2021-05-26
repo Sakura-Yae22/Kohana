@@ -1,6 +1,6 @@
 {
-    "botToken":"",
-    "botPrefix": "dbr!",
+    "botToken":"NzI2NTYwNDQzNDY3OTU2Mjg5.XvfEJA.2Yf8n93JoVpaHSFLwQJrVzlNpuI",
+    "botPrefix": "+",
     "MaxShards":1,
     "bumpMessage":"Time to bump. Use `!d bump`",
     "links":{
