@@ -4,7 +4,7 @@ module.exports = {
 
     
         let mentionedUser = message.content.split(" ")
-        if (mentionedUser[0].length>10){
+        if (mentionedUser.length === 1){
             sendMessage(message.channel.id, {
                 "embed": {
                     "title": `${(await getUser(mentionedUser[0].replace("<","").replace("@","").replace("!","").replace(">",""))).username} was hugged by ${message.author.username}`,
