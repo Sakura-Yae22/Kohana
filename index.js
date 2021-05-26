@@ -1,12 +1,12 @@
-const config = require('./config.json'), Sharder = require('eris-sharder').Master, {Client:PG, types} = require('pg');
+const {botToken, MaxShards, Postgrelogin} = require('./config.json'), Sharder = require('eris-sharder').Master, {Client:PG, types} = require('pg');
 let pgclient;
 types.setTypeParser(1700, 'text', parseFloat);
 
-new Sharder(config.botToken, "/main.js", {
+new Sharder(botToken, "/main.js", {
 	stats: false,
 	debug: true,
 	guildsPerShard: 1500,
-	shards: config.MaxShards,
+	shards: MaxShards,
 	name: "Kohana",
 	clientOptions: {
 		restMode: true,
@@ -51,5 +51,3 @@ exports.query = async function query(statement) {
 		return err
 	})
 }
-
-exports.config = config;
