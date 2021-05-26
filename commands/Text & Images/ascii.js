@@ -1,6 +1,6 @@
+const figlet = require('figlet');
 module.exports = {
-    "commandLogic": function commandLogic(message, sendMessage, getUser, config){
-        var figlet = require('figlet');
+    "commandLogic": function commandLogic(message, sendMessage){
         figlet(message.content, function(err, data) {
             if (err) {
                 console.dir(err);

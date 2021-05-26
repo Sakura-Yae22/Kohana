@@ -1,5 +1,5 @@
 // require libs and files
-const  {query, config} = require('./index'), {Base} = require("eris-sharder"), puppeteer = require("puppeteer"), cron = require('node-cron'), fs = require('fs'), nekoslife = require("nekos.life"), nekolife = new nekoslife();;
+const  {query, config} = require('./index'), {Base} = require("eris-sharder"), puppeteer = require("puppeteer"), cron = require('node-cron'), fs = require('fs');
 let sharder, runCmds = {};
 
 module.exports = class Class extends Base{
@@ -82,7 +82,7 @@ module.exports = class Class extends Base{
                 var commands = ((message.content.slice((config.botPrefix).length).trim()).split(" "))
                 
                 message.content = commands.join(" ")
-                runCmds[commands[0]].commandLogic({sendMessage, query, makeserverLB, getuser, commands, config, message, sharder, runCmds, nekolife, randomColor})
+                runCmds[commands[0]].commandLogic({sendMessage, query, makeserverLB, getuser, commands, config, message, sharder, runCmds, randomColor})
             }
         });
         

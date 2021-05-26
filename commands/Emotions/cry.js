@@ -1,6 +1,6 @@
+const fetch = require("node-fetch")
 module.exports = {
     "commandLogic": async function commandLogic(itemsToImport) {
-        const fetch = require("node-fetch")
         let {message, sendMessage}=itemsToImport
         
         sendMessage(message.channel.id, {

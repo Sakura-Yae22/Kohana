@@ -1,8 +1,8 @@
+const fetch = require("node-fetch")
 module.exports = {
     "commandLogic": async function pout(itemsToImport) {
         let {message, sendMessage} = itemsToImport
 
-        const fetch = require("node-fetch")
         sendMessage(message.channel.id, {
             "embed": {
                 "title": `${message.author.username} pouted`,
