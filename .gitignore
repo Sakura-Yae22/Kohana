@@ -102,12 +102,8 @@ dist
 
 # TernJS port file
 .tern-port
-Kobato-loli.png
-package-lock.json
-notes.txt
+
+
 config.json
-config.json
-Postgres/
-.DS_Store
-config.json
-config.json
+./config.json
+
