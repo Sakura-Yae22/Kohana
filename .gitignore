@@ -107,5 +107,11 @@ dist
 config.json
 ./config.json
 
+<<<<<<< HEAD
 Kobato-loli.png
 notes.txt
+=======
+.DS_Store
+Postgres/
+config.json
+>>>>>>> fdafe186ff7d209663bcc249308e128d5f31179c
