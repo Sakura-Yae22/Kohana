@@ -7,7 +7,7 @@ module.exports = {
                 console.dir(err);
                 return;
             }
-            data = "```\n+"+data+"```"
+            data = "```\n"+data+"```"
             message.channel.createMessage( (data.length > 2000) ? 'The ASCII art is too big.' : data).catch(err => console.error("Cannot send messages to this channel", err));
         });
     },
