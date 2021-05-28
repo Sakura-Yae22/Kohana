@@ -14,7 +14,7 @@ module.exports = {
             }
         }
        
-        let commandHelp = message.content.split(" ")[1]
+        const commandHelp = message.content.split(" ")[1]
 
         if (Object.keys(runCmds).includes(commandHelp)){
             help.embed.fields = JSON.parse(JSON.stringify(runCmds[commandHelp].help).split("??botPrefix??").join(botPrefix))
