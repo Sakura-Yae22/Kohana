@@ -1,15 +1,19 @@
-const nekoslife = require("nekos.life"), nekolife = new nekoslife()
+const fetch = require('node-fetch');
 module.exports = {
     "commandLogic": async function commandLogic(itemsToImport) {
         const {message}=itemsToImport
 
         const ranChance = Math.floor(Math.random() * 100) + 1;
+
+        const neko = await fetch(`https://purrbot.site/api/img/sfw/neko/${ranChance>=50 ? 'img' : 'gif'}`)
+        const nekoJSON = await neko.json()
+
         message.channel.createMessage({"embed": {
         "title": "NEKO",
             "color": 2717868,
             "timestamp": new Date().toISOString(),
             "image": {
-                "url": ranChance>=50 ? (await nekolife.sfw.neko()).url : (await nekolife.sfw.nekoGif()).url
+                "url": nekoJSON.link
             }
         }}).catch(err => console.error("Cannot send messages to this channel", err));
     },

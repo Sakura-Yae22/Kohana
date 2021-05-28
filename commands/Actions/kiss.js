@@ -1,4 +1,4 @@
-const nekoslife = require("nekos.life"), nekolife = new nekoslife()
+const fetch = require('node-fetch');
 module.exports = {
     "commandLogic": async function commandLogic(itemsToImport) {
         const {message}=itemsToImport
@@ -6,6 +6,8 @@ module.exports = {
         if (message.mentions.length !== 1) return message.channel.createMessage("Please mention a user.").catch(err => console.error("Cannot send messages to this channel", err));
         if (message.mentions[0].bot) return  message.channel.createMessage("You cant kiss a bot.").catch(err => console.error("Cannot send messages to this channel", err));
         if (message.mentions[0].id === message.author.id) return  message.channel.createMessage("You cant kiss your self.").catch(err => console.error("Cannot send messages to this channel", err));
+        const kiss = await fetch('https://purrbot.site/api/img/sfw/kiss/gif')
+        const kissJSON = await kiss.json()
 
         message.channel.createMessage({
             "embed": {
@@ -13,7 +15,7 @@ module.exports = {
                 "color": 2717868,
                 "timestamp": new Date().toISOString(),
                 "image": {
-                    "url": (await nekolife.sfw.kiss()).url
+                    "url": kissJSON.link
                 }
             }
         }).catch(err => console.error("Cannot send messages to this channel", err));
