@@ -1,11 +1,11 @@
 module.exports = {
     "commandLogic": async function commandLogic(itemsToImport) {
-        let {message, query, commands} = itemsToImport;
-        if (! commands[1]) return message.channel.createMessage( {"embed": {"title": `Error`,"description":"Improper syntax.", "color": 5747894,"timestamp": new Date().toISOString()}}).catch(err => console.error("Cannot send messages to this channel", err));
+        const {message, query} = itemsToImport;
+        if (message.channelMentions.length === 0) return message.channel.createMessage( {"embed": {"title": `Error`,"description":"Improper syntax.", "color": 5747894,"timestamp": new Date().toISOString()}}).catch(err => console.error("Cannot send messages to this channel", err));
             
         if (!message.member.permission.has("administrator")) return message.channel.createMessage( {"embed": {"title": `Error`,"description":"You must be the owner of this server or an administrator.", "color": 5747894,"timestamp": new Date().toISOString()}}).catch(err => console.error("Cannot send messages to this channel", err));
         
-        var guild = await query({text: 'SELECT * FROM guilds WHERE serverid = $1', values: [message.channel.guild.id]})
+        const guild = await query({text: 'SELECT * FROM guilds WHERE serverid = $1', values: [message.channel.guild.id]})
         
         if (guild.length === 0) return message.channel.createMessage( {"embed": {"title": `Error`,"description":"Make a valid bump first", "color": 5747894,"timestamp": new Date().toISOString()}}).catch(err => console.error("Cannot send messages to this channel", err));
     

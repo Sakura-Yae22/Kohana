@@ -1,7 +1,7 @@
 module.exports = {
     "commandLogic": async function commandLogic(itemsToImport) {
-        let {commands, message, query} = itemsToImport;
-        var userid = commands[1] ? (((((commands[1]).replace("<", "")).replace("@","")).replace("!","")).replace(">","")) : message.author.id, total = 0;
+        const {message, query} = itemsToImport;
+        const userid = message.mentions[0].id || message.content.split(" ") [0] || message.author.id, total = 0;
         await (await query({text: 'SELECT * FROM users WHERE userid = $1', values: [userid]})).map(({bumps})=>{total+= parseInt(bumps)});
 
         message.channel.createMessage( {"embed": {"title": `User stats`,"description": `Total bumps: **${total}**`, "color": 5747894,"timestamp": new Date().toISOString()}}).catch(err => console.error("Cannot send messages to this channel", err));

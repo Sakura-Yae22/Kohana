@@ -1,9 +1,8 @@
 const {botPrefix, links} = require('../../config.json');
 
-
 module.exports = {
     "commandLogic": async function commandLogic(itemsToImport) {
-        let {message, runCmds} = itemsToImport;
+        const {message, runCmds} = itemsToImport;
 
         let help = {
             "embed": {
