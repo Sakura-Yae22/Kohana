@@ -1,5 +1,5 @@
 // require libs and files
-const {query} = require('./index'), {botPrefix, bumpMessage} = require('./config.json'), {Base} = require("eris-sharder"), cron = require('node-cron'), fs = require('fs/promises'), {createCanvas} = require('canvas');
+const {query} = require('./index'), {botPrefix} = require('./config.json'), {Base} = require("eris-sharder"), cron = require('node-cron'), fs = require('fs/promises'), {createCanvas} = require('canvas');
 let sharder, runCmds = {};
 
 module.exports = class Class extends Base{
@@ -36,31 +36,24 @@ module.exports = class Class extends Base{
                         "users": await query({text: 'SELECT * FROM users WHERE serverid = $1 AND userid = $2', values: [message.channel.guild.id, ((message.embeds[0].description.split("<@"))[1].split(">, "))[0]]}),
                         "weeklyLB":await query({text: 'SELECT * FROM weeklylb WHERE serverid = $1 AND userid = $2', values: [message.channel.guild.id, ((message.embeds[0].description.split("<@"))[1].split(">, "))[0]]})
                     }
-
                     message.channel.createMessage( { "embed": { "title": `Bumped`, "color": 5747894, "timestamp": new Date(timetobump).toISOString(), "footer": { "text": `Bump On: ` } } }).catch(err => console.error("Cannot send messages to this channel", err))
-                   
-                    if (dbrequests.guild.length === 0) query({text: 'INSERT INTO guilds (serverid, channelid, timetobump, bumpmessage) VALUES ($1, $2, $3, $4)', values: [message.channel.guild.id, message.channel.id, timetobump, bumpMessage]})
-                    else  query({text: 'UPDATE guilds SET channelid = $1 timetobump = $2 WHERE serverid = $3', values: [message.channel.id, timetobump, message.channel.guild.id]})    
-                             
-                    if (dbrequests.users.length===0) await query({text: 'INSERT INTO users (serverid, userid, bumps) VALUES ($1, $2, $3)', values: [message.channel.guild.id, ((message.embeds[0].description.split("<@"))[1].split(">, "))[0], 1]})
+                    if (dbrequests.guild.length === 0) query({text: 'INSERT INTO guilds (serverid, channelid, timetobump) VALUES ($1, $2, $3)', values: [message.channel.guild.id, message.channel.id, timetobump]})
+                    else query({text: 'UPDATE guilds SET channelid = $1, timetobump = $2 WHERE serverid = $3', values: [message.channel.id, timetobump, message.channel.guild.id]})    
+                    if (dbrequests.users.length===0) await query({text: 'INSERT INTO users (serverid, userid) VALUES ($1, $2)', values: [message.channel.guild.id, ((message.embeds[0].description.split("<@"))[1].split(">, "))[0]]})
                     else await query({text: 'UPDATE users SET bumps = $1 WHERE serverid = $2 AND userid = $3', values: [(dbrequests.users[0].bumps)+1, message.channel.guild.id, ((message.embeds[0].description.split("<@"))[1].split(">, "))[0]]})
-                                        
                     if (dbrequests.weeklyLB.length===0) query({text: 'INSERT INTO weeklylb (serverid, userid, bumps) VALUES ($1, $2, $3)', values: [message.channel.guild.id, ((message.embeds[0].description.split("<@"))[1].split(">, "))[0], 1]})
                     else query({text: 'UPDATE weeklylb SET bumps = $1 WHERE serverid = $2 AND userid = $3', values: [(dbrequests.weeklyLB[0].bumps)+1, message.channel.guild.id,((message.embeds[0].description.split("<@"))[1].split(">, "))[0]]})
-                    
                     if (dbrequests.guild[0].constlbchannelid){
                         sharder.bot.deleteMessage(dbrequests.guild[0].constlbchannelid, dbrequests.guild[0].constlbmsgid, "reason").catch(err => console.error("Cannot delete this message", err));
-                        let updatedChannel = await message.channel.createMessage({"embed": {"title": `Scoreboard`,"image": {"url":`attachment://LB_${message.id}.png`},"color": 5747894,"timestamp": new Date()}},{name: `LB_${message.id}.png`,file: await makeserverLB(message.channel.guild.id, 'allTime')}).catch(err => console.error("Cannot send messages to this channel", err))
+                        let updatedChannel = await sharder.bot.createMessage(dbrequests.guild[0].constlbchannelid,{"embed": {"title": `Scoreboard`,"image": {"url":`attachment://LB_${message.id}.png`},"color": 5747894,"timestamp": new Date()}},{name: `LB_${message.id}.png`,file: await makeserverLB(message.channel.guild.id, 'allTime')}).catch(err => console.error("Cannot send messages to this channel", err))
                         query({text: 'UPDATE guilds SET constlbmsgid = $1 WHERE serverid = $2', values: [updatedChannel.id, message.channel.guild.id]})
                     }
 
                 }else if (message.embeds[0].description.includes("Please wait another") && !message.embeds[0].description.includes("until you can bump")){                    
                     const timetobump = new Date().getTime() + ((parseInt(((message.embeds[0].description.split("another"))[1].split("minutes")[0]).replace(" ", "").replace(" ", ""))) * 60000)
                     const guild = await query({text: 'SELECT * FROM guilds WHERE serverid = $1', values: [message.channel.guild.id]})
-                    
                     message.channel.createMessage({ "embed": { "title": `Bump Failed`, "color": 15420513, "timestamp": new Date(timetobump).toISOString(), "footer": { "text": `Bump On: ` } } }).catch(err => console.error("Cannot send messages to this channel", err))
-
-                    if (guild.length === 0) query({text: 'INSERT INTO guilds (serverid, channelid, timetobump, bumpmessage) VALUES ($1, $2, $3, $4)', values: [message.channel.guild.id, message.channel.id, timetobump, bumpMessage]});
+                    if (guild.length === 0) query({text: 'INSERT INTO guilds (serverid, channelid, timetobump) VALUES ($1, $2, $3)', values: [message.channel.guild.id, message.channel.id, timetobump]});
                     else query({text: 'UPDATE guilds SET channelid = $1, timetobump = $2 WHERE serverid = $3', values:[message.channel.id, timetobump, message.channel.guild.id]})                    
                 }
             }
