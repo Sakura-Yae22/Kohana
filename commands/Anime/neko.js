@@ -18,6 +18,6 @@ module.exports = {
         }}).catch(err => console.error("Cannot send messages to this channel", err));
     },
     "help":[
-        {"name": "__Usage__","value": "Shows a random neko image.\n```\n?PREFIX?neko\n```","inline": true}
+        {"name": "__Usage__","value": "Shows a random neko image.\n```\n??botPrefix??neko\n```","inline": true}
     ]
 };

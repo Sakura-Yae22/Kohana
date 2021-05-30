@@ -15,6 +15,6 @@ module.exports = {
         }).catch(err => console.error("Cannot send messages to this channel", err));
     },
     "help":[
-        {"name": "__Usage__","value": "Sometimes you just need to cry.\n```\n?PREFIX?cry\n```","inline": true}
+        {"name": "__Usage__","value": "Sometimes you just need to cry.\n```\n??botPrefix??cry\n```","inline": true}
     ]
 };

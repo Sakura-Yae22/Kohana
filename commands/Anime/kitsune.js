@@ -17,6 +17,6 @@ module.exports = {
         }).catch(err => console.error("Cannot send messages to this channel", err));
     },
     "help":[
-        {"name": "__Usage__","value": "Cute anime fox.\n```\n?PREFIX?kitsune \n```","inline": true}
+        {"name": "__Usage__","value": "Cute anime fox.\n```\n??botPrefix??kitsune \n```","inline": true}
     ]
 };

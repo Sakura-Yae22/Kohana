@@ -9,6 +9,6 @@ module.exports = {
         message.channel.createMessage( {"embed": {"title": "Random Fact:","description": factJSON.text,"url":factJSON.permalink,"color": 2717868,"timestamp": new Date().toISOString(),"footer": {"text": `Fact id: ${factJSON.id}`}}}).catch(err => console.error("Cannot send messages to this channel", err));
     },
     "help":[
-        {"name": "__Usage__","value": "Lists all commands\n ```\n?PREFIX?help\n```\nGives information about a specific command.\n```\n?PREFIX?help <command>\n```","inline": true}
+        {"name": "__Usage__","value": "Get a random fact\n ```\n??botPrefix??fact\n```","inline": true}
     ]
 };

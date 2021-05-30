@@ -17,6 +17,6 @@ module.exports = {
         }).catch(err => console.error("Cannot send messages to this channel", err));
     },
     "help":[
-        {"name": "__Usage__","value": "Get an image of Holo\n```\n?PREFIX?holo\n```","inline": true}
+        {"name": "__Usage__","value": "Get an image of Holo\n```\n??botPrefix??holo\n```","inline": true}
     ]
 };

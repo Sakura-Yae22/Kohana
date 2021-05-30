@@ -6,6 +6,6 @@ module.exports = {
         message.channel.createMessage( (asciiText.length > 2000) ? 'The ASCII art is too big.' : asciiText+"```").catch(err => console.error("Cannot send messages to this channel", err));
     },
     "help":[
-        {"name": "__Usage__","value": "Converts text to ASCII art.\n```\n?PREFIX?ascii <TEXT>\n```","inline": true}
+        {"name": "__Usage__","value": "Converts text to ASCII art.\n```\n??botPrefix??ascii <TEXT>\n```","inline": true}
     ]
 };
