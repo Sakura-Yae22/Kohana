@@ -9,4 +9,4 @@ module.exports = {
         {"name": "__Usage__","value": "Shows the top bumpers of the week.\n```??botPrefix??weeklyscoreboard```"},
         {"name": "__Alias__","value": "```??botPrefix??weeklyleaderboard```"}
     ]
-}
+};

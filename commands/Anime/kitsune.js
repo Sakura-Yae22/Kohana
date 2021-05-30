@@ -1,10 +1,10 @@
 const fetch = require('node-fetch');
 module.exports = {
     "commandLogic": async function commandLogic(itemsToImport) {
-        const {message} = itemsToImport
+        const {message} = itemsToImport;
 
-        const kitsune = await fetch('https://purrbot.site/api/img/sfw/kitsune/img')
-        const kitsuneJSON = await kitsune.json()
+        const kitsune = await fetch('https://purrbot.site/api/img/sfw/kitsune/img');
+        const kitsuneJSON = await kitsune.json();
         message.channel.createMessage({
             "embed": {
                 "title": `KITSUNE`,
@@ -19,4 +19,4 @@ module.exports = {
     "help":[
         {"name": "__Usage__","value": "Cute anime fox.\n```\n?PREFIX?kitsune \n```","inline": true}
     ]
-}
+};

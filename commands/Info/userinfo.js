@@ -2,7 +2,7 @@ module.exports = {
     "commandLogic": async function commandLogic(itemsToImport) {
         const {message} = itemsToImport;
 
-        const member = message.channel.guild.members.get(message.author.id)
+        const member = message.channel.guild.members.get(message.author.id);
 
         message.channel.createMessage({
             "embed": {
@@ -45,4 +45,4 @@ module.exports = {
     "help":[
         {"name": "__Usage__","value": "Shows info about the about a guild member.\n```??botPrefix??userinfo```"}
     ]
-}
+};
