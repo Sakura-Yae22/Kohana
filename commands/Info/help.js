@@ -14,12 +14,12 @@ module.exports = {
             }
         };
        
-        const commandHelp = message.content.split(" ")[1];
+        const commandHelp = message.content.split(" ")[0];
 
         if (Object.keys(runCmds).includes(commandHelp)){
             help.embed.fields = JSON.parse(JSON.stringify(runCmds[commandHelp].help).split("??botPrefix??").join(botPrefix));
             help.embed.description=``;
-        }else{
+        } else {
             for (const command in runCmds){
                 let catagorynum;
                 help.embed.fields.forEach((field) => {
