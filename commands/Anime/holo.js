@@ -1,10 +1,10 @@
 const fetch = require('node-fetch');
 module.exports = {
     "commandLogic": async function commandLogic(itemsToImport) {
-        const {message} = itemsToImport
+        const {message} = itemsToImport;
 
-        const holo = await fetch('https://purrbot.site/api/img/sfw/holo/img')
-        const holoJSON = await holo.json()
+        const holo = await fetch('https://purrbot.site/api/img/sfw/holo/img');
+        const holoJSON = await holo.json();
         message.channel.createMessage({
             "embed": {
                 "title": `HOLO`,
@@ -19,4 +19,4 @@ module.exports = {
     "help":[
         {"name": "__Usage__","value": "Get an image of Holo\n```\n?PREFIX?holo\n```","inline": true}
     ]
-}
+};

@@ -65,4 +65,4 @@ module.exports = {
     "help":[
         {"name": "__Usage__","value": "Shows info about the about a guild member.\n```??botPrefix??userinfo```"}
     ]
-}
+};

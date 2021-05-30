@@ -1,7 +1,7 @@
-const fetch = require("node-fetch")
+const fetch = require("node-fetch");
 module.exports = {
     "commandLogic": async function pout(itemsToImport) {
-        const {message} = itemsToImport
+        const {message} = itemsToImport;
 
         message.channel.createMessage( {
             "embed": {
@@ -17,4 +17,4 @@ module.exports = {
     "help":[
         {"name": "__Usage__","value": "It's ok to pout sometimes.\n```\n?PREFIX?pout\n```","inline": true}
     ]
-}
+};
