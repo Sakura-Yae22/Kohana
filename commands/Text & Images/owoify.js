@@ -1,4 +1,5 @@
-const nekoslife = require("nekos.life"), {sfw} = new nekoslife();
+const nekoslife = require("nekos.life"),
+    {sfw} = new nekoslife();
 module.exports = {
     "commandLogic": async function commandLogic(itemsToImport){
         const {message} = itemsToImport;
