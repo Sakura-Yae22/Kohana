@@ -9,4 +9,4 @@
 6. Now you can start the bot by running `node ./index.js` or if you choose to use pm2 `pm2 start ./index.js --name bump-reminder`
 
 # Todo
-1. Make the bot auto setup the database
+ - [ ] Make the bot auto setup the database
