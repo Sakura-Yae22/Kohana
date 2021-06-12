@@ -1,4 +1,4 @@
-const {botPrefix, links} = require('../../config.json');
+const {botPrefix, links} = require('/static/config.json');
 
 module.exports = {
     "commandLogic": async function commandLogic(itemsToImport) {
@@ -21,18 +21,18 @@ module.exports = {
             help.embed.description=``;
         } else {
             for (const command in runCmds){
-                let categorynum;
+                let catagorynum;
                 help.embed.fields.forEach((field) => {
-                    categorynum = (field.name == runCmds[command].category);
+                    catagorynum = (field.name == runCmds[command].catagory);
                 });
 
-                if (categorynum){
-                    let index = help.embed.fields.findIndex(element => element.name === runCmds[command].category);
+                if (catagorynum){
+                    let index = help.embed.fields.findIndex(element => element.name === runCmds[command].catagory);
                     let splitString = help.embed.fields[index].value.split("```");
                     splitString[1]=`${splitString[1]}${command}\n`;                    
                     help.embed.fields[index].value="```\n"+splitString.join("")+"```";
                 }else{
-                    help.embed.fields.push({"name": runCmds[command].category, "value": "```\n"+command+"\n```","inline": true});
+                    help.embed.fields.push({"name": runCmds[command].catagory, "value": "```\n"+command+"\n```","inline": true});
                 }
             }
         }

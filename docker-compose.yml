@@ -1,0 +1,29 @@
+# docker-compose.yml
+version: "3"
+
+volumes:
+  kohanaStatic:
+    driver: local
+    driver_opts:
+       o: bind
+       type: none
+       device: ~/Docker_data/kohana
+
+services:
+  app:
+    build: .
+    depends_on:
+      - postgres
+    volumes:
+      - ~/Docker_data/kohana:/static
+      
+  postgres:
+    image: postgres:12-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=Password
+      - POSTGRES_DB=DBRdb
+    ports:
+      - 127.0.0.1:9229:5432
+    volumes:
+      - ~/Docker_data/kohana/DB:/var/lib/postgresql/data

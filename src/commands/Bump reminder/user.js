@@ -1,7 +1,7 @@
 module.exports = {
     "commandLogic": async function commandLogic(itemsToImport) {
         const {message, query} = itemsToImport;
-        const userid = message.mentions[0].id || message.content.split(" ") [0] || message.author.id;
+        const userid = message.mentions[0]?.id || message.content.split(" ")[0] || message.author.id;
         let total = 0;
         await (await query({text: 'SELECT * FROM users WHERE userid = $1', values: [userid]})).map(({bumps})=>{total += parseInt(bumps)});
 

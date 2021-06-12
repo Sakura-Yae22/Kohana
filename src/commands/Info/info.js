@@ -1,4 +1,4 @@
-const {links, MaxShards} = require('../../config.json');
+const {links, MaxShards} = require('/static/config.json');
 
 module.exports = {
     "commandLogic": async function commandLogic(itemsToImport) {

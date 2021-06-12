@@ -1,10 +1,5 @@
 // require libs and files
-const { query } = require("./index"),
-  { botPrefix } = require("./config.json"),
-  { Base } = require("eris-sharder"),
-  cron = require("node-cron"),
-  fs = require("fs/promises"),
-  { createCanvas } = require("canvas");
+const {query} = require('./index'), {botPrefix} = require('/static/config.json'), {Base} = require("eris-sharder"), cron = require('node-cron'), fs = require('fs/promises'), {createCanvas} = require('canvas');
 let sharder, runCmds = {};
 
 module.exports = class Class extends Base{
@@ -12,16 +7,16 @@ module.exports = class Class extends Base{
         super(bot);
     }
     async launch() {
-        sharder = this;
+        sharder=this;
 
         // init commands
-        (async function initcommands (){
-            (await fs.readdir('commands')).forEach(async category=>{
-                if (category.startsWith('.')) return;
-                (await fs.readdir(`commands/${category}`)).forEach(command=>{
+        (async function initcommans (){
+            (await fs.readdir('commands')).forEach(async catagory=>{
+                if (catagory.startsWith('.')) return;
+                (await fs.readdir(`commands/${catagory}`)).forEach(command=>{
                     if (command.startsWith('.')) return;
-                    let {commandLogic, help} = require(`./commands/${category}/${command}`);
-                    runCmds[command.split(".js")[0]] = {commandLogic, help, category: category};
+                    let {commandLogic, help} = require(`./commands/${catagory}/${command}`);
+                    runCmds[command.split(".js")[0]] = {commandLogic, help, catagory};
                 });
             });
 
@@ -70,8 +65,8 @@ module.exports = class Class extends Base{
             }
         });
         
-        cron.schedule("0 0 * * *", ()=>checkExpiredservers(true));
-        cron.schedule("* * * * *", ()=>checkExpiredservers());
+        cron.schedule("0 0 * * *", ()=>{checkExpiredservers(true)});
+        cron.schedule("* * * * *", ()=>{checkExpiredservers()});
         async function checkExpiredservers(dailyCheck){
             const today = new Date(), time = today.getTime();
 
