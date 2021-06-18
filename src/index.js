@@ -1,18 +1,30 @@
-const Sharder = require('eris-sharder').Master, {Client:PG, types} = require('pg'), fs = require('fs/promises');
+const {Fleet} = require('eris-fleet'), {Client: PG, types} = require('pg'), {inspect} = require('util'), fs = require('fs/promises');
 
 (async()=>{
 	const targetEnv = await fs.stat("dev_config.json").catch(err => console.log())
-	const {botToken, MaxShards, Postgrelogin} = require(targetEnv ? './dev_config.json' : '/static/config.json');
+	const {botToken, MaxShards, Postgrelogin, botPrefix} = require(targetEnv ? './dev_config.json' : '/static/config.json');
 
 	let pgclient;
 	types.setTypeParser(1700, 'text', parseFloat);
-
-	new Sharder(botToken, "/main.js", {
-		stats: false,
-		debug: true,
-		guildsPerShard: 1500,
+	
+	const Admiral = new Fleet({
+		path:  require('path').join(__dirname, "/main.js"),
+		token: botToken,
 		shards: MaxShards,
-		name: "Kohana",
+		guildsPerShard: 1500,
+		statsInterval: 'disable',
+		whatToLog: {
+			blacklist:[
+				"stats_update"
+			]
+		},
+		startingStatus:{
+			status: "dnd", 
+			game: {
+				name: `${botPrefix}help`,
+				type: 0, 
+			}
+		},
 		clientOptions: {
 			restMode: true,
 			disableEvents: {
@@ -34,27 +46,34 @@ const Sharder = require('eris-sharder').Master, {Client:PG, types} = require('pg
 		}
 	});
 
+	if (require('cluster').isMaster) {
+		// Admiral events
+		Admiral.on('log', m => console.log(m));
+		Admiral.on('debug', m => console.debug(m));
+		Admiral.on('warn', m => console.warn(m));
+		Admiral.on('error', m => console.error(inspect(m)));
+	}
+
 	function pgClientConnect() {
 		pgclient = new PG(Postgrelogin);
 		pgclient.connect(err => {
 			if (err) console.error(`[${new Date().toLocaleString()}] `, err.stack);
 			else console.log(`[${new Date().toLocaleString()}] postgres connected and ready`);
-		});
+		})
 	}
 	pgClientConnect();
 	exports.query = async function query(statement) {
-		if (!pgclient._connected) return {"error": "not conected to DB"};
+		if (!pgclient._connected) return {"error": "not conected to DB"}
 		return new Promise((resolve, reject) => {
 			pgclient.query(statement, (err, res) => {
 				if (err) reject(err);
 				resolve(res.rows);
 			});
 		}).catch(async err => {
-			await pgclient.end();
-			pgClientConnect();
-			console.error(JSON.stringify(statement), err);
-			return err;
-		});
-	};
-
+			await pgclient.end()
+			pgClientConnect()
+			console.error(JSON.stringify(statement), err)
+			return err
+		})
+	}
 })()

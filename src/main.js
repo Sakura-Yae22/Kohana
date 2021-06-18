@@ -1,12 +1,12 @@
 // require libs and files
-const {query} = require('./index'), {botPrefix} = require('/static/config.json'), {Base} = require("eris-sharder"), cron = require('node-cron'), fs = require('fs/promises'), {createCanvas} = require('canvas');
+const {query} = require('./index'), {BaseClusterWorker} = require('eris-fleet'), cron = require('node-cron'), fs = require('fs/promises'), {createCanvas} = require('canvas');
 let sharder, runCmds = {};
 
-module.exports = class Class extends Base{
-    constructor(bot) {
-        super(bot);
-    }
-    async launch() {
+module.exports = class BotWorker extends BaseClusterWorker {
+    constructor(setup) {
+        // Do not delete this super.
+        super(setup);
+
         sharder=this;
         sharder.query = query;
 
@@ -20,9 +20,6 @@ module.exports = class Class extends Base{
                     runCmds[command.split(".js")[0]] = {commandLogic, help, catagory};
                 });
             });
-
-            // set status
-            sharder.bot.editStatus("dnd", {name: `${botPrefix}help`,type: 0});
         })();
         
         // decide what to do on message create
@@ -110,4 +107,9 @@ module.exports = class Class extends Base{
             return canvas.toBuffer();
         }
     }
-};
+
+    shutdown(done) {
+        // Optional function to gracefully shutdown things if you need to.
+        done(); // Use this function when you are done gracefully shutting down.
+    }
+}
