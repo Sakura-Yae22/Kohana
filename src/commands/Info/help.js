@@ -7,7 +7,7 @@ module.exports = {
         let help = {
             "embed": {
                 "title": "Help", 
-                "description": `Below is a list of my commands.\nFor more details on any command use **${settings.prefix}help <command>**\nFor further help you can join the [support server](${links["Support server"]})`, 
+                "description": `Below is a list of my commands.\nFor more details on any command use **${settings[0].prefix}help <command>**\nFor further help you can join the [support server](${links["Support server"]})`, 
                 "fields": [],
                 "color": 5747894, 
                 "timestamp": new Date().toISOString()
@@ -17,7 +17,7 @@ module.exports = {
         const commandHelp = message.content.split(" ")[0];
 
         if (Object.keys(runCmds).includes(commandHelp)){
-            help.embed.fields = JSON.parse(JSON.stringify(runCmds[commandHelp].help).split("??botPrefix??").join(settings.prefix));
+            help.embed.fields = JSON.parse(JSON.stringify(runCmds[commandHelp].help).split("??botPrefix??").join(settings[0].prefix));
             help.embed.description=``;
         } else {
             for (const command in runCmds){
