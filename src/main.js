@@ -60,7 +60,7 @@ module.exports = class Class extends Base{
             }
             // commands
             else if (message.attachments.length === 0 && !message.author.bot && message.channel.type === 0 && Object.keys(runCmds).some(v => (message.content.split(" ")[0]).includes(v))) {
-                const settings = await query({text: 'SELECT * FROM guilds WHERE serverid = $3', values: [message.channel.guild.id]});
+                const settings = await query({text: 'SELECT * FROM guilds WHERE serverid = $1', values: [message.channel.guild.id]});
                 if (! message.content.toLowerCase().startsWith(settings[0].prefix)) return
 
                 const commands = ((message.content.slice((settings[0].prefix).length).trim()).split(" "));
