@@ -1,13 +1,13 @@
-const {botPrefix, links} = require('/static/config.json');
+const {links} = require('/static/config.json');
 
 module.exports = {
     "commandLogic": async function commandLogic(itemsToImport) {
-        const {message, runCmds} = itemsToImport;
+        const {message, runCmds, settings} = itemsToImport;
 
         let help = {
             "embed": {
                 "title": "Help", 
-                "description": `Below is a list of my commands.\nFor more details on any command use **${botPrefix}help <command>**\nFor further help you can join the [support server](${links["Support server"]})`, 
+                "description": `Below is a list of my commands.\nFor more details on any command use **${settings.botPrefix}help <command>**\nFor further help you can join the [support server](${links["Support server"]})`, 
                 "fields": [],
                 "color": 5747894, 
                 "timestamp": new Date().toISOString()
@@ -17,7 +17,7 @@ module.exports = {
         const commandHelp = message.content.split(" ")[0];
 
         if (Object.keys(runCmds).includes(commandHelp)){
-            help.embed.fields = JSON.parse(JSON.stringify(runCmds[commandHelp].help).split("??botPrefix??").join(botPrefix));
+            help.embed.fields = JSON.parse(JSON.stringify(runCmds[commandHelp].help).split("??botPrefix??").join(settings.botPrefix));
             help.embed.description=``;
         } else {
             for (const command in runCmds){
@@ -36,7 +36,7 @@ module.exports = {
                 }
             }
         }
-        message.channel.createMessage( help).catch(err => console.error("Cannot send messages to this channel", err));
+        message.channel.createMessage(help).catch(err => console.error("Cannot send messages to this channel", err));
     },
     "help":[
         { "name": "__Usage__", "value": "Lists all commands.\n```??botPrefix??help```\nGives information about a specific command.\n```??botPrefix??help <command>```" }

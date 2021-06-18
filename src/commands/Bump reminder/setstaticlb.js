@@ -1,15 +1,15 @@
 module.exports = {
     "commandLogic": async function commandLogic(itemsToImport) {
-        const {message, query} = itemsToImport;
+        const {message, sharder} = itemsToImport;
         if (message.channelMentions.length === 0) return message.channel.createMessage( {"embed": {"title": `Error`,"description":"Improper syntax.", "color": 5747894,"timestamp": new Date().toISOString()}}).catch(err => console.error("Cannot send messages to this channel", err));
             
         if (!message.member.permission.has("administrator")) return message.channel.createMessage( {"embed": {"title": `Error`,"description":"You must be the owner of this server or an administrator.", "color": 5747894,"timestamp": new Date().toISOString()}}).catch(err => console.error("Cannot send messages to this channel", err));
         
-        const guild = await query({text: 'SELECT * FROM guilds WHERE serverid = $1', values: [message.channel.guild.id]});
+        const guild = await sharder.query({text: 'SELECT * FROM guilds WHERE serverid = $1', values: [message.channel.guild.id]});
         
         if (guild.length === 0) return message.channel.createMessage( {"embed": {"title": `Error`,"description":"Make a valid bump first", "color": 5747894,"timestamp": new Date().toISOString()}}).catch(err => console.error("Cannot send messages to this channel", err));
     
-        query({text: 'UPDATE guilds SET constlbchannelid = $1 , constlbmsgid = $2 WHERE serverid = $1', values: [message.channelMentions[0], message.channel,guild.id, message.channel.guild.id]});
+        sharder.query({text: 'UPDATE guilds SET constlbchannelid = $1 , constlbmsgid = $2 WHERE serverid = $1', values: [message.channelMentions[0], message.channel,guild.id, message.channel.guild.id]});
         message.channel.createMessage( {"embed": {"title": `Done`,"description":`The message provided will be updated every bump.`, "color": 5747894,"timestamp": new Date().toISOString()}}).catch(err => console.error("Cannot send messages to this channel", err));
         
     },

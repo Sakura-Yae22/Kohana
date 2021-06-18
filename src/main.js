@@ -8,6 +8,7 @@ module.exports = class Class extends Base{
     }
     async launch() {
         sharder=this;
+        sharder.query = query;
 
         // init commands
         (async function initcommans (){
@@ -58,10 +59,13 @@ module.exports = class Class extends Base{
                 }
             }
             // commands
-            else if (message.attachments.length === 0 && !message.author.bot && message.channel.type === 0 && Object.keys(runCmds).some(v => (message.content.split(" ")[0]).includes(v)) && ((message.content).toLowerCase()).startsWith(botPrefix)) {
-                const commands = ((message.content.slice((botPrefix).length).trim()).split(" "));
+            else if (message.attachments.length === 0 && !message.author.bot && message.channel.type === 0 && Object.keys(runCmds).some(v => (message.content.split(" ")[0]).includes(v))) {
+                const settings = await query({text: 'SELECT * FROM guilds WHERE serverid = $3', values: [message.channel.guild.id]});
+                if (! message.content.toLowerCase().startsWith(settings[0].botPrefix)) return
+
+                const commands = ((message.content.slice((settings[0].botPrefix).length).trim()).split(" "));
                 message.content = commands.splice(1).join(" ");
-                runCmds[commands[0]].commandLogic({query, makeserverLB, message, sharder, runCmds});
+                runCmds[commands[0]].commandLogic({makeserverLB, message, sharder, runCmds, settings});
             }
         });
         
