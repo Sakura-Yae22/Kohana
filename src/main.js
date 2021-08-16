@@ -5,11 +5,12 @@ let sharder;
 module.exports = class BotWorker extends BaseClusterWorker {
     constructor(setup) {
         super(setup);
-
+        
+        this.bot.commands = new Map();
+        this.links = links;
+        this.query = query;
+        this.config = require('./static/config.json')
         sharder=this;
-        sharder.bot.commands = new Map();
-        sharder.links = links;
-        sharder.query = query;
 
         // init commands
         (async () => {
@@ -44,20 +45,14 @@ async function handleMessage (message) {
     if (message.attachments.length !== 0) return
     if (message.author.bot) return
     if (message.channel.type !== 0) return
+    if (! message.content.toLowerCase().startsWith(sharder.config.botPrefix)) return
 
-    let settings = await query({text: 'SELECT * FROM guilds WHERE serverid = $1', values: [message.channel.guild.id]});
-    if (settings.length===0) {
-        await query({text: 'INSERT INTO guilds (serverid) VALUES ($1)', values: [message.channel.guild.id]});
-        settings = await query({text: 'SELECT * FROM guilds WHERE serverid = $1', values: [message.channel.guild.id]});
-    }
-    if (! message.content.toLowerCase().startsWith(settings[0].prefix)) return
-
-    const commands = ((message.content.slice((settings[0].prefix).length).trim()).split(" "));
-
+    const commands = ((message.content.slice((sharder.config.botPrefix).length).trim()).split(" "));
     if (!sharder.bot.commands.has(`${commands[0]}_Logic`)) return
+    
     message.content = commands.splice(1).join(" ");
 
-    sharder.bot.commands.get(`${commands[0]}_Logic`)({message, sharder, settings})
+    sharder.bot.commands.get(`${commands[0]}_Logic`)({message, sharder})
 };
 
 cron.schedule("0 0 * * *", ()=>{checkExpiredservers(true)});
