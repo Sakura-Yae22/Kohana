@@ -1,14 +1,13 @@
-const {Fleet} = require('eris-fleet'), {Client: PG, types} = require('pg'), {inspect} = require('util'), fs = require('fs/promises');
+const {Fleet} = require('eris-fleet'), {Client: PG, types} = require('pg'), {inspect} = require('util'), path = require('path');
 
 (async()=>{
-	const targetEnv = await fs.stat("dev_config.json").catch(err => console.log())
-	const {botToken, MaxShards, Postgrelogin, botPrefix} = require(targetEnv ? './dev_config.json' : '/static/config.json');
+	const {botToken, MaxShards, Postgrelogin, botPrefix, links} = require('./static/config.json');
 
 	let pgclient;
 	types.setTypeParser(1700, 'text', parseFloat);
 	
 	const Admiral = new Fleet({
-		path:  require('path').join(__dirname, "/main.js"),
+		path: path.join(__dirname, "/main.js"),
 		token: botToken,
 		shards: MaxShards,
 		guildsPerShard: 1500,
@@ -43,7 +42,13 @@ const {Fleet} = require('eris-fleet'), {Client: PG, types} = require('pg'), {ins
 				GUILD_ROLE_UPDATE: true,
 				GUILD_UPDATE: true
 			}
-		}
+		},
+		services: [
+			{
+				name: "makeserverLB", 
+				path: path.join(__dirname, "./utils/makeserverLB.js")
+			}
+		]
 	});
 
 	if (require('cluster').isMaster) {
@@ -62,7 +67,7 @@ const {Fleet} = require('eris-fleet'), {Client: PG, types} = require('pg'), {ins
 		})
 	}
 	pgClientConnect();
-	exports.query = async function query(statement) {
+	module.exports.query = async function query(statement) {
 		if (!pgclient._connected) return {"error": "not conected to DB"}
 		return new Promise((resolve, reject) => {
 			pgclient.query(statement, (err, res) => {
@@ -76,4 +81,6 @@ const {Fleet} = require('eris-fleet'), {Client: PG, types} = require('pg'), {ins
 			return err
 		})
 	}
+
+	module.exports.links = links
 })()
