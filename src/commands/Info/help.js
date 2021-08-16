@@ -1,41 +1,36 @@
-const {links} = require('/static/config.json');
-
 module.exports = {
     "commandLogic": async function commandLogic(itemsToImport) {
-        const {message, runCmds, settings} = itemsToImport;
+        const {message, sharder} = itemsToImport;
 
         let help = {
             "embed": {
                 "title": "Help", 
-                "description": `Below is a list of my commands.\nFor more details on any command use **${settings.botPrefix}help <command>**\nFor further help you can join the [support server](${links["Support server"]})`, 
+                "description": `Below is a list of my commands.\nFor more details on any command use **${sharder.config.botPrefix}help <command>**\nFor further help you can join the [support server](${sharder.links["Support server"]})`, 
                 "fields": [],
                 "color": 5747894, 
-                "timestamp": new Date().toISOString()
             }
         };
        
         const commandHelp = message.content.split(" ")[0];
 
-        if (Object.keys(runCmds).includes(commandHelp)){
-            help.embed.fields = JSON.parse(JSON.stringify(runCmds[commandHelp].help).split("??botPrefix??").join(settings.botPrefix));
+        if (sharder.bot.commands.has(`${commandHelp}_help`)){
+            help.embed.fields = JSON.parse(JSON.stringify(sharder.bot.commands.get(`${commandHelp}_help`)).replace(/\?\?botPrefix\?\?/g, sharder.config.botPrefix));
             help.embed.description=``;
-        } else {
-            for (const command in runCmds){
-                let catagorynum;
-                help.embed.fields.forEach((field) => {
-                    catagorynum = (field.name == runCmds[command].catagory);
-                });
-
-                if (catagorynum){
-                    let index = help.embed.fields.findIndex(element => element.name === runCmds[command].catagory);
-                    let splitString = help.embed.fields[index].value.split("```");
-                    splitString[1]=`${splitString[1]}${command}\n`;                    
-                    help.embed.fields[index].value="```\n"+splitString.join("")+"```";
-                }else{
-                    help.embed.fields.push({"name": runCmds[command].catagory, "value": "```\n"+command+"\n```","inline": true});
-                }
-            }
+        }else{
+            Array.from(sharder.bot.commands.keys())
+            .filter(name=>name.endsWith("_catagory"))
+            .map(command=>{
+                command = command.split("_")[0]
+                const catagory = sharder.bot.commands.get(`${command}_catagory`)
+                const catagoryIndex = help.embed.fields.findIndex(element => element.name === catagory)
+                if (catagoryIndex != -1){
+                    let splitString = help.embed.fields[catagoryIndex].value.split("```")
+                    splitString[1]+=`${command}\n`       
+                    help.embed.fields[catagoryIndex].value="```\n"+splitString.join("")+"```"
+                }else help.embed.fields.push({"name": catagory, "value": "```\n"+command+"\n```","inline": true})
+            })
         }
+
         message.channel.createMessage(help).catch(err => console.error("Cannot send messages to this channel", err));
     },
     "help":[
