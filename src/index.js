@@ -1,10 +1,7 @@
-const {Fleet} = require('eris-fleet'), {Client: PG, types} = require('pg'), {inspect} = require('util'), path = require('path');
+const {Fleet} = require('eris-fleet'), {inspect} = require('util'), path = require('path');
 
 (async()=>{
 	const {botToken, MaxShards, Postgrelogin, botPrefix, links} = require('./static/config.json');
-
-	let pgclient;
-	types.setTypeParser(1700, 'text', parseFloat);
 	
 	const Admiral = new Fleet({
 		path: path.join(__dirname, "/main.js"),
@@ -47,6 +44,10 @@ const {Fleet} = require('eris-fleet'), {Client: PG, types} = require('pg'), {ins
 			{
 				name: "makeserverLB", 
 				path: path.join(__dirname, "./services/makeserverLB.js")
+			},
+			{
+				name: "db", 
+				path: path.join(__dirname, "./services/database.js")
 			}
 		]
 	});
@@ -59,28 +60,6 @@ const {Fleet} = require('eris-fleet'), {Client: PG, types} = require('pg'), {ins
 		Admiral.on('error', m => console.error(inspect(m)));
 	}
 
-	function pgClientConnect() {
-		pgclient = new PG(Postgrelogin);
-		pgclient.connect(err => {
-			if (err) console.error(`[${new Date().toLocaleString()}] `, err.stack);
-			else console.log(`[${new Date().toLocaleString()}] postgres connected and ready`);
-		})
-	}
-	pgClientConnect();
-	module.exports.query = async function query(statement) {
-		if (!pgclient._connected) return {"error": "not conected to DB"}
-		return new Promise((resolve, reject) => {
-			pgclient.query(statement, (err, res) => {
-				if (err) reject(err);
-				resolve(res.rows);
-			});
-		}).catch(async err => {
-			await pgclient.end()
-			pgClientConnect()
-			console.error(JSON.stringify(statement), err)
-			return err
-		})
-	}
-
 	module.exports.links = links
+	module.exports.Postgrelogin = Postgrelogin
 })()

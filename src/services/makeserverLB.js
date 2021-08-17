@@ -1,4 +1,4 @@
-const {BaseServiceWorker} = require('eris-fleet'), {query} = require('../index');
+const {BaseServiceWorker} = require('eris-fleet');
 
 module.exports = class ServiceWorker extends BaseServiceWorker {
     constructor(setup) {
@@ -7,8 +7,8 @@ module.exports = class ServiceWorker extends BaseServiceWorker {
     }
 
     async handleCommand(dataSentInCommand) {
-        const table = await query((dataSentInCommand.durration=="allTime") ? {text: 'SELECT * FROM users WHERE serverid = $1 order by bumps desc fetch first 10 rows only', values: [dataSentInCommand.guildID]} : {text: 'SELECT * FROM weeklylb WHERE serverid = $1 order by bumps desc fetch first 10 rows only', values: [dataSentInCommand.guildID]});
-        const userNames = await Promise.all(await table.map(async user=> await query({text: 'SELECT * FROM userdata WHERE id = $1', values: [user.userid]})))    
+        const table = await this.ipc.command("db", (dataSentInCommand.durration=="allTime") ? {text: 'SELECT * FROM users WHERE serverid = $1 order by bumps desc fetch first 10 rows only', values: [dataSentInCommand.guildID]} : {text: 'SELECT * FROM weeklylb WHERE serverid = $1 order by bumps desc fetch first 10 rows only', values: [dataSentInCommand.guildID]}, true);
+        const userNames = await Promise.all(await table.map(async user=> await this.ipc.command("db", {text: 'SELECT * FROM userdata WHERE id = $1', values: [user.userid]}, true)))    
         const longestUserNameLength = userNames.sort((a, b) => b[0].username.length - a[0].username.length)[0][0].username.length;
 
         const userNamesObj = {};
