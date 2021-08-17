@@ -11,7 +11,6 @@ module.exports = {
         message.channel.createMessage({"embed": {
         "title": "NEKO",
             "color": 2717868,
-            "timestamp": new Date().toISOString(),
             "image": {
                 "url": nekoJSON.link
             }

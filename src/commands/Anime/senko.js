@@ -9,7 +9,6 @@ module.exports = {
             "embed": {
                 "title": `SENKO`,
                 "color": 2717868,
-                "timestamp": new Date().toISOString(),
                 "image": {
                     "url": senkoJSON.link
                 }

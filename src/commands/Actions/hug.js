@@ -13,7 +13,6 @@ module.exports = {
             "embed": {
                 "title": `${message.mentions[0].username} was hugged by ${message.author.username}`,
                 "color": 2717868,
-                "timestamp": new Date().toISOString(),
                 "image": {
                     "url": hugJSON.link
                 }

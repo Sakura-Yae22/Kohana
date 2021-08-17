@@ -8,7 +8,6 @@ module.exports = {
             "embed": {
               "title": guild.name,
               "color": 5747894,
-              "timestamp": new Date().toISOString(),
               "thumbnail": {
                 "url":  guild.iconURL || 'https://cdn.discordapp.com/embed/avatars/4.png'
               },

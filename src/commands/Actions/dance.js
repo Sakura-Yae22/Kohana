@@ -10,7 +10,6 @@ module.exports = {
             "embed": {
                 "title": `${message.mentions[0].username} showed off some moves.`,
                 "color": 2717868,
-                "timestamp": new Date().toISOString(),
                 "image": {
                     "url": danceJSON.link
                 }
