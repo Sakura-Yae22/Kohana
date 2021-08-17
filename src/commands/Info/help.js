@@ -5,7 +5,7 @@ module.exports = {
         let help = {
             "embed": {
                 "title": "Help", 
-                "description": `Below is a list of my commands.\nFor more details on any command use **${sharder.config.botPrefix}help <command>**\nFor further help you can join the [support server](${sharder.links["Support server"]})`, 
+                "description": `Below is a list of my commands.\nFor more details on any command use **${sharder.config.botPrefix}help <command>**\nFor further help you can join the [support server](${sharder.links.display["Support server"]})`, 
                 "fields": [],
                 "color": 5747894, 
             }
