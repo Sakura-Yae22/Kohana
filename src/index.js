@@ -46,7 +46,7 @@ const {Fleet} = require('eris-fleet'), {Client: PG, types} = require('pg'), {ins
 		services: [
 			{
 				name: "makeserverLB", 
-				path: path.join(__dirname, "./utils/makeserverLB.js")
+				path: path.join(__dirname, "./services/makeserverLB.js")
 			}
 		]
 	});
