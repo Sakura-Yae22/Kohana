@@ -62,6 +62,6 @@ module.exports = {
         }).catch(err => console.error("Cannot send messages to this channel", err));
     },
     "help":[
-        {"name": "__Usage__","value": "Shows info about the about a guild member.\n```??botPrefix??userinfo```"}
+        {"name": "__Usage__","value": "Shows info about the about the guild.\n```??botPrefix??guildindo```"}
     ]
 };
