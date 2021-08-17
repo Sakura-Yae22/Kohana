@@ -1,5 +1,5 @@
 // require libs and files
-const {BaseClusterWorker} = require('eris-fleet'), fs = require('fs/promises'), cron = require('node-cron'), checkExpiredservers = require('./utils/checkExpiredservers.js');
+const {BaseClusterWorker} = require('eris-fleet'), fs = require('fs/promises'), nekoslife = require("nekos.life"), cron = require('node-cron'), checkExpiredservers = require('./utils/checkExpiredservers');
 
 module.exports = class BotWorker extends BaseClusterWorker {
     constructor(setup) {
@@ -8,6 +8,7 @@ module.exports = class BotWorker extends BaseClusterWorker {
         this.bot.commands = new Map();
         this.links = require('./settings/links.json');
         this.config = require('./static/config.json');
+        this.nekoslife = new nekoslife();
 
         (async () => {
             // checkExpiredservers

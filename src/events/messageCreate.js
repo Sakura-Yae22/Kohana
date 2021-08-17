@@ -1,5 +1,5 @@
 // require disboard utils
-const Disbord = require('../utils/disbord'), checkExpiredservers = require('./utils/checkExpiredservers.js');
+const Disbord = require('../utils/disbord'), checkExpiredservers = require('../utils/checkExpiredservers');
 
 module.exports =  async function handleMessage (sharder, message) {
     // disboard
