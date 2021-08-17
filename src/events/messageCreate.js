@@ -1,7 +1,9 @@
-const Disbord = require('../utils/disbord')
+// require disboard utils
+const Disbord = require('../utils/disbord'), checkExpiredservers = require('./utils/checkExpiredservers.js');
+
 module.exports =  async function handleMessage (sharder, message) {
     // disboard
-    // checkExpiredservers(); 
+    checkExpiredservers(sharder, false); 
     if (message.author.id == "302050872383242240") return Disbord(message, sharder)
 
     // command logic

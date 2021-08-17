@@ -1,5 +1,5 @@
 // require libs and files
-const {BaseClusterWorker} = require('eris-fleet'), fs = require('fs/promises');
+const {BaseClusterWorker} = require('eris-fleet'), fs = require('fs/promises'), cron = require('node-cron'), checkExpiredservers = require('./utils/checkExpiredservers.js');
 
 module.exports = class BotWorker extends BaseClusterWorker {
     constructor(setup) {
@@ -10,6 +10,10 @@ module.exports = class BotWorker extends BaseClusterWorker {
         this.config = require('./static/config.json');
 
         (async () => {
+            // checkExpiredservers
+            cron.schedule("0 0 * * *", ()=>{checkExpiredservers(this, true)});
+            cron.schedule("* * * * *", ()=>{checkExpiredservers(this, false)});
+            
             // init events
             const events = await fs.readdir('events');
             events.map(async event=>{
