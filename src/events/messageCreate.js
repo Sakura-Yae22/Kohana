@@ -1,7 +1,8 @@
+const Disbord = require('../utils/disbord')
 module.exports =  async function handleMessage (sharder, message) {
     // disboard
     // checkExpiredservers(); 
-    // if (message.author.id == "302050872383242240") Disbord(message)
+    if (message.author.id == "302050872383242240") return Disbord(message, sharder)
 
     // command logic
     if (message.attachments.length !== 0) return

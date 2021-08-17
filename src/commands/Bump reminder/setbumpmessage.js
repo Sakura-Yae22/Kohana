@@ -6,7 +6,7 @@ module.exports = {
         const guild = await sharder.ipc.command("db", {text: 'SELECT * FROM guilds WHERE serverid = $1', values: [message.channel.guild.id]}, true);
         if (guild.length === 0) return message.channel.createMessage( {"embed": {"title": `Error`,"description":"Make a valid bump first", "color": 5747894}}).catch(err => console.error("Cannot send messages to this channel", err));
 
-        sharder.ipc.command("db", {text: 'UPDATE guilds SET bumpmessage = $1  WHERE serverid = $2', values: [message.content, message.channel.guild.id]}, true);
+        sharder.ipc.command("db", {text: 'UPDATE guilds SET bumpmessage = $1  WHERE serverid = $2', values: [message.content, message.channel.guild.id]});
         message.channel.createMessage( {"embed": {"title": `Done`,"description":"The new reminder message for this server is: `"+message.content+"`", "color": 5747894}}).catch(err => console.error("Cannot send messages to this channel", err));
     },
     "help":[
