@@ -7,7 +7,6 @@ module.exports = {
             "embed": {
                 "title": `${message.author.username} cried`,
                 "color": 2717868,
-                "timestamp": new Date().toISOString(),
                 "image": {
                     "url": (await fetch("https://shiro.gg/api/images/cry").then(res => res.json())).url
                 }

@@ -10,7 +10,6 @@ module.exports = {
             "embed": {
                 "title": `${message.mentions[0].username} smiled`,
                 "color": 2717868,
-                "timestamp": new Date().toISOString(),
                 "image": {
                     "url": smileJSON.link
                 }

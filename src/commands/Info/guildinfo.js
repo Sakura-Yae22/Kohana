@@ -8,7 +8,6 @@ module.exports = {
             "embed": {
               "title": guild.name,
               "color": 5747894,
-              "timestamp": new Date().toISOString(),
               "thumbnail": {
                 "url":  guild.iconURL || 'https://cdn.discordapp.com/embed/avatars/4.png'
               },
@@ -63,6 +62,6 @@ module.exports = {
         }).catch(err => console.error("Cannot send messages to this channel", err));
     },
     "help":[
-        {"name": "__Usage__","value": "Shows info about the about a guild member.\n```??botPrefix??userinfo```"}
+        {"name": "__Usage__","value": "Shows info about the about the guild.\n```??botPrefix??guildindo```"}
     ]
 };

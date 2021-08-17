@@ -8,7 +8,6 @@ module.exports = {
             "embed": {
               "title": `${member.username}#${member.discriminator}${member.nick ? ` (${member.nick})` : ""}`,
               "color": 5747894,
-              "timestamp": new Date().toISOString(),
               "thumbnail": {
                 "url":  member.avatarURL
               },

@@ -104,14 +104,7 @@ dist
 .tern-port
 
 
-config.json
-./config.json
 
-<<<<<<< HEAD
-Kobato-loli.png
-notes.txt
-=======
-.DS_Store
-Postgres/
-config.json
->>>>>>> fdafe186ff7d209663bcc249308e128d5f31179c
+notes/
+src/static/
+src/package-lock.json

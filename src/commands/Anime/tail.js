@@ -9,7 +9,6 @@ module.exports = {
             "embed": {
                 "title": `TAIL`,
                 "color": 2717868,
-                "timestamp": new Date().toISOString(),
                 "image": {
                     "url": holoJSON.link
                 }

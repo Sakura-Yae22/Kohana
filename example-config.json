@@ -3,12 +3,6 @@
     "botPrefix": "+",
     "MaxShards": 1,
     "bumpMessage": "Time to bump. Use `!d bump`",
-    "links":{
-        "Support server": "https://discord.gg/szK7AkYjhd",
-        "Donate": "https://paypal.me/numselli",
-        "Github": "https://github.com/numselli/Kohana",
-        "Invite": "https://discord.com/oauth2/authorize?client_id=763088956454994000&scope=bot&permissions=8"
-    },
     "Postgrelogin":{
         "user": "postgres",
         "database": "DBRdb",
