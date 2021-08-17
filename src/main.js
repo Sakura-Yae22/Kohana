@@ -7,7 +7,7 @@ module.exports = class BotWorker extends BaseClusterWorker {
         
         this.bot.commands = new Map();
         this.links = require('./settings/links.json');
-        this.config = require('./static/config.json');
+        this.config = require('/static/config.json');
         this.nekoslife = new nekoslife();
 
         (async () => {
