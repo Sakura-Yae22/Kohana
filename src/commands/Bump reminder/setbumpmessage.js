@@ -1,6 +1,6 @@
 module.exports = {
     "commandLogic": async function commandLogic({message, sharder} = itemsToImport) {
-        if (message.content) return message.channel.createMessage( {"embed": {"title": `Error`,"description":"Improper syntax.", "color": 5747894}}).catch(err => console.error("Cannot send messages to this channel", err));
+        if (!message.content) return message.channel.createMessage( {"embed": {"title": `Error`,"description":"Improper syntax.", "color": 5747894}}).catch(err => console.error("Cannot send messages to this channel", err));
         if (!message.member.permission.has("administrator")) return message.channel.createMessage( {"embed": {"title": `Error`,"description":"You must be the owner of this server or an administrator.", "color": 5747894}}).catch(err => console.error("Cannot send messages to this channel", err));
 
         const guild = await sharder.ipc.command("db", {text: 'SELECT * FROM guilds WHERE serverid = $1', values: [message.channel.guild.id]}, true);
