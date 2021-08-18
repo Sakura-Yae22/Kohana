@@ -5,10 +5,8 @@ module.exports = {
 
         const ranChance = Number((Math.random() * 1).toFixed(1));
         const nekosLifeRandChance = Number((Math.random() * 1).toFixed(1));
-
-        const neko = await fetch(`https://purrbot.site/api/img/sfw/neko/${ranChance>=0.5 ? 'img' : 'gif'}`);
-
-        const nekoJSON = (nekosLifeRandChance >= 0.5) ? await neko.json() : await sharder.nekoslife.sfw.neko();
+        
+        const nekoJSON = (nekosLifeRandChance >= 0.5) ? await (await fetch(`https://purrbot.site/api/img/sfw/neko/${ranChance>=0.5 ? 'img' : 'gif'}`)).json() : await sharder.nekoslife.sfw.neko();
 
         message.channel.createMessage({"embed": {
         "title": "NEKO",
