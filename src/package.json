@@ -7,9 +7,9 @@
     "index": "index.js"
   },
   "dependencies": {
-    "ascii-art": "^2.8.0",
     "eris": "^0.15.1",
-    "eris-fleet": "^0.3.7",
+    "eris-fleet": "^0.3.9",
+    "figlet": "^1.5.2",
     "nekos.life": "^2.0.7",
     "node-cron": "^3.0.0",
     "pg": "^8.6.0"
