@@ -1,10 +1,3 @@
-// enter a sub name 
-// .setTitle(`a random image from r/${Subreddit}`)
-// .setColor(`RANDOM`)
-// .setImage(img)
-// .setURL(`https://reddit.com/r/${Subreddit}`)
-// image is random post from sub
-
 const fetch = require('node-fetch');
 
 module.exports = {
@@ -12,8 +5,14 @@ module.exports = {
         const {message} = itemsToImport;
         const splitMessage = message.content.split(" ")
 
-        const reddit = await fetch(`https://api.reddit.com/r/${splitMessage[0].toLowerCase() ?? "all"}/${splitMessage[1].toLowerCase() ?? "top"}?limit=1`);
+        const aboutSub = await fetch(`https://api.reddit.com/r/${splitMessage[0].toLowerCase()}/about`);
+        const aboutSubJSON = await aboutSub.json();
+        if (aboutSubJSON.message === "Not Found") return message.channel.createMessage({"embed": {"title": `Error`,"description": 'This subreddit cant be found.',"color": 2717868}}).catch(err => console.error("Cannot send messages to this channel", err));
+        if (aboutSubJSON.data.over_18 && !message.channel.nsfw) return message.channel.createMessage({"embed": {"title": `Error`,"description": 'This subreddit is marked 18+ and this channel is not suitable for such content.',"color": 2717868}}).catch(err => console.error("Cannot send messages to this channel", err));
+
+        const reddit = await fetch(`https://api.reddit.com/r/${splitMessage[0].toLowerCase()}/${splitMessage[1]?.toLowerCase() ?? "top"}?limit=1`);
         const redditJSON = await reddit.json();
+        if (redditJSON.data.children[0].data.over_18 && !message.channel.nsfw) return message.channel.createMessage({"embed": {"title": `Error`,"description": 'This post is marked 18+ and this channel is not suitable for such content.',"color": 2717868}}).catch(err => console.error("Cannot send messages to this channel", err));
 
         message.channel.createMessage(
             {
@@ -33,6 +32,6 @@ module.exports = {
         ).catch(err => console.error("Cannot send messages to this channel", err));
     },
     "help":[
-        {"name": "__Usage__","value": "Sometimes you just nyeed to owoify youw speech.\n```\n??botPrefix??help <command>\n```","inline": true}
+        {"name": "__Usage__","value": "Show the top post from a sub reddit.\n```\n??botPrefix??reddit <subreddit> <sort (best, hot, new, random)>\n```","inline": true}
     ]
 };
