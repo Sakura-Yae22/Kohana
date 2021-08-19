@@ -7,7 +7,7 @@ module.exports = {
         const smileJSON = await smile.json();
 
         message.channel.createMessage({
-            "embed": {
+            "embeds": {
                 "title": `${message.mentions[0].username} smiled`,
                 "color": 2717868,
                 "image": {

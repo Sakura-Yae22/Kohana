@@ -5,11 +5,11 @@ module.exports = {
         const guild = message.channel.guild;
 
         message.channel.createMessage({
-            "embed": {
+            "embeds": {
               "title": guild.name,
               "color": 5747894,
               "thumbnail": {
-                "url":  guild.iconURL || 'https://cdn.discordapp.com/embed/avatars/4.png'
+                "url":  guild.iconURL || 'https://cdn.discordapp.com/embeds/avatars/4.png'
               },
               "fields": [
                 {
@@ -19,7 +19,7 @@ module.exports = {
                 },
                 {
                   "name": "Icon",
-                  "value": `[URL](${guild.iconURL  || "https://cdn.discordapp.com/embed/avatars/4.png"})`,
+                  "value": `[URL](${guild.iconURL  || "https://cdn.discordapp.com/embeds/avatars/4.png"})`,
                   "inline": true
                 },
                 {

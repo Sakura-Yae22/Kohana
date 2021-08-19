@@ -6,7 +6,7 @@ module.exports = {
         const senko = await fetch('https://purrbot.site/api/img/sfw/senko/img');
         const senkoJSON = await senko.json();
         message.channel.createMessage({
-            "embed": {
+            "embeds": {
                 "title": `SENKO`,
                 "color": 2717868,
                 "image": {

@@ -10,7 +10,7 @@ module.exports = {
 
         message.channel.createMessage(
             {
-                "embed": {
+                "embeds": {
                   "title": memeJSON[0].data.children[0].data.title,
                   "url": `https://reddit.com${memeJSON[0].data.children[0].data.permalink}`,
                   "color": 2717868,

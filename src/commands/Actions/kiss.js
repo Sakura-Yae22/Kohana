@@ -11,7 +11,7 @@ module.exports = {
         const kissJSON = await kiss.json();
 
         message.channel.createMessage({
-            "embed": {
+            "embeds": {
                 "title": `${message.mentions[0].username} was kissed by ${message.author.username}`,
                 "color": 2717868,
                 "image": {

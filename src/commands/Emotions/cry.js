@@ -4,7 +4,7 @@ module.exports = {
         const {message} = itemsToImport;
         
         message.channel.createMessage( {
-            "embed": {
+            "embeds": {
                 "title": `${message.author.username} cried`,
                 "color": 2717868,
                 "image": {

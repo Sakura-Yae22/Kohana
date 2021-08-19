@@ -8,7 +8,7 @@ module.exports = {
         
         const nekoJSON = (nekosLifeRandChance >= 0.5) ? await (await fetch(`https://purrbot.site/api/img/sfw/neko/${ranChance>=0.5 ? 'img' : 'gif'}`)).json() : await sharder.nekoslife.sfw.neko();
 
-        message.channel.createMessage({"embed": {
+        message.channel.createMessage({"embeds": {
         "title": "NEKO",
             "color": 2717868,
             "image": {

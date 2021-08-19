@@ -6,7 +6,7 @@ module.exports = {
         const holo = await fetch('https://purrbot.site/api/img/sfw/holo/img');
         const holoJSON = await holo.json();
         message.channel.createMessage({
-            "embed": {
+            "embeds": {
                 "title": `HOLO`,
                 "color": 2717868,
                 "image": {

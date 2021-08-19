@@ -4,7 +4,7 @@ module.exports = {
 
         const nekoJSON = await sharder.nekoslife.sfw.waifu();
 
-        message.channel.createMessage({"embed": {
+        message.channel.createMessage({"embeds": {
         "title": "Waifu",
             "color": 2717868,
             "image": {

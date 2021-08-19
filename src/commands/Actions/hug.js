@@ -11,7 +11,7 @@ module.exports = {
         const hugJSON = await hug.json();
 
         message.channel.createMessage({
-            "embed": {
+            "embeds": {
                 "title": `${message.mentions[0].username} was hugged by ${message.author.username}`,
                 "color": 2717868,
                 "image": {

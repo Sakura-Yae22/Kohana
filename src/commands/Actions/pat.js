@@ -12,7 +12,7 @@ module.exports = {
         const pat = ranChance>=0.5 ? await (await fetch('https://purrbot.site/api/img/sfw/pat/gif')).json() : await sharder.nekoslife.sfw.pat();
         
         message.channel.createMessage({
-            "embed": {
+            "embeds": {
                 "title": `${message.mentions[0].username} was patted by ${message.author.username}`,
                 "color": 2717868,
                 "image": {

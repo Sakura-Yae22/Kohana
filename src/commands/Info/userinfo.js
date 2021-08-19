@@ -5,7 +5,7 @@ module.exports = {
         const member = message.channel.guild.members.get(message.author.id);
 
         message.channel.createMessage({
-            "embed": {
+            "embeds": {
               "title": `${member.username}#${member.discriminator}${member.nick ? ` (${member.nick})` : ""}`,
               "color": 5747894,
               "thumbnail": {

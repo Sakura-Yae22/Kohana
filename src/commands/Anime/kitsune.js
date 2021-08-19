@@ -6,7 +6,7 @@ module.exports = {
         const kitsune = await fetch('https://purrbot.site/api/img/sfw/kitsune/img');
         const kitsuneJSON = await kitsune.json();
         message.channel.createMessage({
-            "embed": {
+            "embeds": {
                 "title": `KITSUNE`,
                 "color": 2717868,
                 "image": {

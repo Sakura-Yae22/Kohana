@@ -12,7 +12,7 @@ module.exports = {
         const cuddle = ranChance>=0.5 ? await (await fetch('https://purrbot.site/api/img/sfw/cuddle/gif')).json() : await sharder.nekoslife.sfw.cuddle();
         
         message.channel.createMessage({
-            "embed": {
+            "embeds": {
                 "title": `${message.mentions[0].username} was cuddled by ${message.author.username}`,
                 "color": 2717868,
                 "image": {

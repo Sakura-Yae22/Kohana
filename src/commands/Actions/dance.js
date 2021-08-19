@@ -7,7 +7,7 @@ module.exports = {
         const danceJSON = await dance.json();
 
         message.channel.createMessage({
-            "embed": {
+            "embeds": {
                 "title": `${message.mentions[0].username} showed off some moves.`,
                 "color": 2717868,
                 "image": {

@@ -10,7 +10,7 @@ module.exports = {
         const bite = await fetch('https://purrbot.site/api/img/sfw/bite/gif');
         const biteJSON = await bite.json();
         message.channel.createMessage({
-            "embed": {
+            "embeds": {
                 "title": `${message.mentions[0].username} was bitten by ${message.author.username}`,
                 "color": 2717868,
                 "image": {
