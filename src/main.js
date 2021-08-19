@@ -1,13 +1,13 @@
 // require libs and files
-const {BaseClusterWorker} = require('eris-fleet'), fs = require('fs/promises'), nekoslife = require("nekos.life"), cron = require('node-cron'), checkExpiredservers = require('./utils/checkExpiredservers');
+const {BaseClusterWorker} = require('eris-fleet'), Eris = require("eris"), fs = require('fs/promises'), nekoslife = require("nekos.life"), cron = require('node-cron'), checkExpiredservers = require('./utils/checkExpiredservers');
 
-module.exports = class BotWorker extends BaseClusterWorker {
+class BotWorker extends BaseClusterWorker {
     constructor(setup) {
         super(setup);
         
         this.bot.commands = new Map();
         this.links = require('./settings/links.json');
-        this.config = require('/static/config.json');
+        this.config = require('./static/config.json');
         this.nekoslife = new nekoslife();
 
         (async () => {
@@ -37,6 +37,21 @@ module.exports = class BotWorker extends BaseClusterWorker {
                     console.log(`[command Loaded] ${cmd}`);
                 });
             });
+
+            // init slash commands
+            // const catagorys = await fs.readdir('slashCommands');
+            // catagorys.map(async catagory=>{
+                // const commands = await fs.readdir(`slashCommands/${catagory}`);
+                // commands.filter(name => name.endsWith(".js"));
+                // commands.map(command=>{
+                    // const {commandLogic, help} = require(`./slashCommands/${catagory}/${command}`);
+                    // const cmd = command.split(".js")[0];
+                    // this.bot.commands.set(`${cmd}_Logic`, commandLogic);
+                    // this.bot.commands.set(`${cmd}_help`, help);
+                    // this.bot.commands.set(`${cmd}_catagory`, catagory);
+                    // console.log(`[command Loaded] ${cmd}`);
+                // });
+            // });
         })();
     }
 
@@ -44,3 +59,5 @@ module.exports = class BotWorker extends BaseClusterWorker {
         done();
     }
 }
+
+module.exports = {BotWorker, Eris};

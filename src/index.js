@@ -1,7 +1,7 @@
 const {Fleet} = require('eris-fleet'), {inspect} = require('util'), path = require('path');
 
 (async()=>{
-	const {botToken, MaxShards, Postgrelogin, botPrefix} = require('/static/config.json');
+	const {botToken, MaxShards, Postgrelogin, botPrefix} = require('./static/config.json');
 	
 	const Admiral = new Fleet({
 		path: path.join(__dirname, "/main.js"),
@@ -23,6 +23,11 @@ const {Fleet} = require('eris-fleet'), {inspect} = require('util'), path = requi
 		},
 		clientOptions: {
 			restMode: true,
+			intents:[
+				"guilds",
+				"guildEmojis",
+				"guildMessages",
+			],
 			disableEvents: {
 				VOICE_STATE_UPDATE: true,
 				USER_UPDATE: true,
