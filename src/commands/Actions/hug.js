@@ -6,7 +6,8 @@ module.exports = {
         if (message.mentions.length !== 1) return  message.channel.createMessage("Please mention a user.").catch(err => console.error("Cannot send messages to this channel", err));
         if (message.mentions[0].bot) return  message.channel.createMessage("You cant hug a bot.").catch(err => console.error("Cannot send messages to this channel", err));
         if (message.mentions[0].id === message.author.id) return  message.channel.createMessage("You cant hug your self.").catch(err => console.error("Cannot send messages to this channel", err));
-        const hug = await fetch('https://purrbot.site/api/img/sfw/hug/gif');
+        
+        const hug = await fetch((nekosLifeRandChance >= 0.5) ? 'https://purrbot.site/api/img/sfw/hug/gif' : "https://anime-api.hisoka17.repl.co/img/hug");
         const hugJSON = await hug.json();
 
         message.channel.createMessage({
