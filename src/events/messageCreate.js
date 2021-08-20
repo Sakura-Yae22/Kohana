@@ -13,8 +13,17 @@ module.exports =  async function handleMessage (sharder, message) {
     if (!message.content.toLowerCase().startsWith(sharder.config.botPrefix)) return
     
     const commands = ((message.content.slice((sharder.config.botPrefix).length).trim()).split(" "));
-    if (!sharder.bot.commands.has(`${commands[0]}_Logic`)) return
-    
-    message.content = commands.splice(1).join(" ");    
-    sharder.bot.commands.get(`${commands[0]}_Logic`)({message, sharder})
+    if (!sharder.bot.slashCommands.has(commands[0])) return
+
+    message.channel.createMessage(
+        {
+            "embeds":[
+                {
+                    "description": `It looks like that is a valid command but I have switched to slash commands. Try running /${commands[0]}. If none of my commands show up you may need to re-invite me using [this invite](https://discord.com/oauth2/authorize?client_id=763088956454994000&scope=applications.commands)`
+                }
+            ]
+       }
+    )    
+    // message.content = commands.splice(1).join(" ");    
+    // sharder.bot.commands.get(`${commands[0]}_Logic`)({message, sharder})
 }
