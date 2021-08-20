@@ -1,8 +1,8 @@
 module.exports =  async (message, sharder) => {
-    if (message.embedss[0].description.includes(":thumbsup:") || (message.embedss[0].description.includes("Please wait another") && !message.embedss[0].description.includes("until you can bump"))) {
-        const bumpFailed = (message.embedss[0].description.includes("Please wait another") && !message.embedss[0].description.includes("until you can bump"));
-        const timetobump = new Date().getTime() + (bumpFailed ? ((parseInt(((message.embedss[0].description.split("another"))[1].split("minutes")[0]).replace(/ /g, ""))) * 60000) : 120 * 60000);
-        const bumperID = ((message.embedss[0].description.split("<@"))[1].split(">, "))[0]
+    if (message.embeds[0].description.includes(":thumbsup:") || (message.embeds[0].description.includes("Please wait another") && !message.embeds[0].description.includes("until you can bump"))) {
+        const bumpFailed = (message.embeds[0].description.includes("Please wait another") && !message.embeds[0].description.includes("until you can bump"));
+        const timetobump = new Date().getTime() + (bumpFailed ? ((parseInt(((message.embeds[0].description.split("another"))[1].split("minutes")[0]).replace(/ /g, ""))) * 60000) : 120 * 60000);
+        const bumperID = ((message.embeds[0].description.split("<@"))[1].split(">, "))[0]
 
         // set next bump time
         const correctBumpGuild = await sharder.ipc.command("db", {text: 'SELECT * FROM guilds WHERE serverid = $1', values: [message.channel.guild.id]}, true);

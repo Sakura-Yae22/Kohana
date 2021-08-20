@@ -39,23 +39,27 @@ class BotWorker extends BaseClusterWorker {
                 });
             });
 
+
             // init slash commands
-            const catagorys = await fs.readdir('slashCommands');
-            catagorys.map(async catagory => {
-                const commands = await fs.readdir(`slashCommands/${catagory}`);
+            const botCommands = await this.bot.getCommands();
+            const slashCategories = await fs.readdir('slashCommands');
+            slashCategories.map(async category => {
+                const commands = await fs.readdir(`slashCommands/${category}`);
                 commands.filter(name => name.endsWith(".js"));
                 commands.map(command => {
-                    const {commandLogic, description, options} = require(`./slashCommands/${catagory}/${command}`);
+                    const {commandLogic, description, options} = require(`./slashCommands/${category}/${command}`);
                     const cmd = command.split(".js")[0];
                     this.bot.slashCommands.set(cmd, commandLogic);
                  
-                    bot.createCommand({
-                        name: cmd,
-                        description: description,
-                        options: options,
-                        type: 1
-                    });
-
+                    if (!botCommands.some(command=>command.name===cmd)){
+                        this.bot.createCommand({
+                            name: cmd,
+                            description: description,
+                            options: options,
+                            type: 1
+                        });
+                    }
+            
                     console.log(`[Slash-command Loaded] ${cmd}`);
                 });
             });

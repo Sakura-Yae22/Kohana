@@ -5,7 +5,7 @@ module.exports.commandLogic = async itemsToImport => {
 
     const tail = await fetch('https://purrbot.site/api/img/sfw/tail/gif');
     const tailJSON = await tail.json();
-    interaction.createMessage({
+    interaction.createMessage([{
         "embeds": {
             "title": `TAIL`,
             "color": 2717868,
@@ -13,7 +13,7 @@ module.exports.commandLogic = async itemsToImport => {
                 "url": tailJSON.link
             }
         }
-    }).catch(err => console.error("Cannot send messages to this channel", err));
+    }]).catch(err => console.error("Cannot send messages to this channel", err));
 }
 
 module.exports.description = "Wag your tail"
