@@ -25,7 +25,6 @@ const {Fleet} = require('eris-fleet'), {inspect} = require('util'), path = requi
 			restMode: true,
 			intents:[
 				"guilds",
-				"guildEmojis",
 				"guildMessages",
 			],
 			disableEvents: {
