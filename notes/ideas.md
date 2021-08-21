@@ -32,7 +32,21 @@ https://www.npmjs.com/package/anime-ext
 - server suggest command
 - crypto/stocks commands
 - remove tracking from links command
-
+- tickets features
+- music commands (spotify, yt)
+- a command where if you say number it says the next number(Bonus: if you wanna get more advance, do it but make it times or divide your numbeer
+- guess the number
+- econemy / bets
+- Hangman
+- Rock Paper Scissors
+- say command
+- wiki
+- levels
+- games
+- image manipulation
+- web dashboard
+- youtube upload notifier
+- ai Chat bot (webhooks mabey)
 
 # nsfw commands to add (purrbot api)
 - p.blowjob <@user>
