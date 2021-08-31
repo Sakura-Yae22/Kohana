@@ -8,7 +8,7 @@ module.exports.commandLogic = async itemsToImport => {
 
     interaction.createMessage({
         "embeds": [{
-            "title": `${message.mentions[0].username} showed off some moves.`,
+            "title": `${interaction.member.user.username} showed off some moves.`,
             "color": 2717868,
             "image": {
                 "url": danceJSON.link
