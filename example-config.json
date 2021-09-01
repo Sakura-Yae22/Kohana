@@ -1,6 +1,5 @@
 {
     "botToken": "",
-    "botPrefix": "+",
     "MaxShards": 1,
     "bumpMessage": "Time to bump. Use `!d bump`",
     "Postgrelogin":{
