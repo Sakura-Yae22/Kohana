@@ -6,8 +6,9 @@ class BotWorker extends BaseClusterWorker {
         super(setup);
 
         this.bot.slashCommands = new Map();
+        this.bot.registeredSlashCMDs = new Map();
+
         this.links = require('./settings/links.json');
-        this.config = require('./static/config.json');
         this.nekoslife = new nekoslife();
 
         (async () => {
@@ -23,8 +24,10 @@ class BotWorker extends BaseClusterWorker {
                 console.log(`[Event Loaded] ${eventName}`);
             })
 
-            // init slash commands
             const botCommands = await this.bot.getCommands();
+            botCommands.map(registeredCMD => this.bot.registeredSlashCMDs.set(registeredCMD.name, registeredCMD.id))
+
+            // init slash commands
             const slashCategories = await fs.readdir('slashCommands');
             slashCategories.map(async category => {
                 const commands = await fs.readdir(`slashCommands/${category}`);
@@ -34,7 +37,7 @@ class BotWorker extends BaseClusterWorker {
                     const cmd = command.split(".js")[0];
                     this.bot.slashCommands.set(cmd, commandLogic);
                  
-                    if (!botCommands.some(command=>command.name===cmd)){
+                    if (!this.bot.registeredSlashCMDs.has(cmd)){
                         this.bot.createCommand({
                             name: cmd,
                             description: description,
