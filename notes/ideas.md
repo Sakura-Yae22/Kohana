@@ -23,30 +23,43 @@ https://www.npmjs.com/package/anime-ext
 
 
 # ideas
-- reminder command
-- purge / admin commands
+- reminder
+- purge / admin
 - reaction roles
 - welcome message
-- polls command
-- giveaways command
-- server suggest command
-- crypto/stocks commands
-- remove tracking from links command
+- polls 
+- giveaways 
+- server suggest 
+- crypto/stocks 
+- remove tracking from links 
+
 - tickets features
-- music commands (spotify, yt)
+- music  (spotify, yt)
 - a command where if you say number it says the next number(Bonus: if you wanna get more advance, do it but make it times or divide your numbeer
 - guess the number
-- econemy / bets
-- Hangman
-- Rock Paper Scissors
-- say command
+- econemy / bets 
+- say 
 - wiki
 - levels
-- games
+- games (Hangman, Rock Paper Scissors, button ticktacktoe)
 - image manipulation
 - web dashboard
 - youtube upload notifier
 - ai Chat bot (webhooks mabey)
+
+- zalgo
+- npm
+- github
+- hack
+- translate
+- calculate
+- binary converter
+
+- leveling
+- gloabal chat
+- startboard
+- pronon selection using dropdowns and buttons
+- hex color info
 
 # nsfw commands to add (purrbot api)
 - p.blowjob <@user>
