@@ -16,13 +16,8 @@ const {Fleet} = require('eris-fleet'), {inspect} = require('util'), path = requi
 		},
 		startingStatus:{
 			status: "dnd", 
-			game: {
-				name: `/help`,
-				type: 0, 
-			}
 		},
 		clientOptions: {
-			restMode: true,
 			intents:[
 				"guilds",
 				"guildMessages",
