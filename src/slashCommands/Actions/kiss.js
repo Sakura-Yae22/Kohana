@@ -1,6 +1,7 @@
-const fetch = import('node-fetch');
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
 module.exports.commandLogic = async itemsToImport => {
+    console.log(JSON.stringify(fetch))
     const {interaction} = itemsToImport;
 
     if (!interaction.data.resolved) return interaction.createMessage({"flags":64, "content": "Please mention a user."}).catch(err => console.error("Cannot send messages to this channel", err));
