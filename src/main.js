@@ -1,40 +1,52 @@
 // require libs and files
-const {BaseClusterWorker} = require('eris-fleet'), fs = require('fs/promises'), nekoslife = require("nekos.life"), cron = require('node-cron'), checkExpiredservers = require('./utils/checkExpiredservers');
+const { BaseClusterWorker } = require('eris-fleet'), Eris = require("eris"), fs = require('fs/promises'), nekoslife = require("nekos.life"), cron = require('node-cron'), checkExpiredservers = require('./utils/checkExpiredservers');
 
-module.exports = class BotWorker extends BaseClusterWorker {
+class BotWorker extends BaseClusterWorker {
     constructor(setup) {
         super(setup);
-        
-        this.bot.commands = new Map();
+
+        this.bot.slashCommands = new Map();
+        this.bot.registeredSlashCMDs = new Map();
+
         this.links = require('./settings/links.json');
-        this.config = require('/static/config.json');
         this.nekoslife = new nekoslife();
 
         (async () => {
             // checkExpiredservers
-            cron.schedule("0 0 * * *", ()=>{checkExpiredservers(this, true)});
-            cron.schedule("* * * * *", ()=>{checkExpiredservers(this, false)});
-            
+            cron.schedule("0 0 * * *", () => { checkExpiredservers(this, true) });
+            cron.schedule("* * * * *", () => { checkExpiredservers(this, false) });
+
             // init events
             const events = await fs.readdir('events');
-            events.map(async event=>{
+            events.map(async event => {
                 const eventName = event.split(".")[0];
                 this.bot.on(eventName, require(`./events/${event}`).bind(null, this));
                 console.log(`[Event Loaded] ${eventName}`);
             })
-            
-            // init commands
-            const catagorys = await fs.readdir('commands');
-            catagorys.map(async catagory=>{
-                const commands = await fs.readdir(`commands/${catagory}`);
+
+            const botCommands = await this.bot.getCommands();
+            botCommands.map(registeredCMD => this.bot.registeredSlashCMDs.set(registeredCMD.name, registeredCMD.id))
+
+            // init slash commands
+            const slashCategories = await fs.readdir('slashCommands');
+            slashCategories.map(async category => {
+                const commands = await fs.readdir(`slashCommands/${category}`);
                 commands.filter(name => name.endsWith(".js"));
-                commands.map(command=>{
-                    const {commandLogic, help} = require(`./commands/${catagory}/${command}`);
+                commands.map(command => {
+                    const {commandLogic, description, options} = require(`./slashCommands/${category}/${command}`);
                     const cmd = command.split(".js")[0];
-                    this.bot.commands.set(`${cmd}_Logic`, commandLogic);
-                    this.bot.commands.set(`${cmd}_help`, help);
-                    this.bot.commands.set(`${cmd}_catagory`, catagory);
-                    console.log(`[command Loaded] ${cmd}`);
+                    this.bot.slashCommands.set(cmd, commandLogic);
+                 
+                    if (!this.bot.registeredSlashCMDs.has(cmd)){
+                        this.bot.createCommand({
+                            name: cmd,
+                            description: description,
+                            options: options,
+                            type: 1
+                        });
+                    }
+            
+                    console.log(`[Slash-command Loaded] ${cmd}`);
                 });
             });
         })();
@@ -44,3 +56,5 @@ module.exports = class BotWorker extends BaseClusterWorker {
         done();
     }
 }
+
+module.exports = { BotWorker, Eris };
