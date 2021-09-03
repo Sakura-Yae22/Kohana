@@ -1,4 +1,5 @@
 const figlet = require('figlet');
+
 module.exports.commandLogic = async itemsToImport => {
     const { interaction } = itemsToImport;
     figlet(interaction.data.options[0].value, function (err, ascii) {

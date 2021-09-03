@@ -1,4 +1,4 @@
-const fetch = require('node-fetch');
+const fetch = import('node-fetch');
 
 module.exports.commandLogic = async itemsToImport => {
     const {interaction, sharder} = itemsToImport;
