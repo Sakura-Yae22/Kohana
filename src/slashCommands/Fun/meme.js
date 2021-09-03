@@ -1,4 +1,4 @@
-const fetch = import('node-fetch');
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
 module.exports.commandLogic = async itemsToImport => {
   const { interaction } = itemsToImport;

@@ -22,6 +22,6 @@ module.exports =  async (message, sharder) => {
             else sharder.ipc.command("db", {text: 'UPDATE users SET bumps = $1, username = $2 WHERE serverid = $3 AND userid = $4', values: [(users[0].bumps)+1, `${discordUser.username}#${discordUser.discriminator}`, message.channel.guild.id, bumperID]});
         }
         
-        message.channel.createMessage({"embeds": {"title": bumpFailed ? "Bump Failed" : "Bumped", "color": bumpFailed ? 15420513 : 5747894, "timestamp": new Date(timetobump).toISOString(), "footer": {"text": `Bump On: `}}}).catch(err => console.error("Cannot send messages to this channel", err));
+        message.channel.createMessage({"embeds": [{"title": bumpFailed ? "Bump Failed" : "Bumped", "description": `Next bump on: <t:${Math.floor(timetobump / 1000)}>`, "color": bumpFailed ? 15420513 : 5747894}]}).catch(err => console.error("Cannot send messages to this channel", err));
     }
 }

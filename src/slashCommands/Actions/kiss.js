@@ -1,4 +1,4 @@
-const fetch = import('node-fetch');
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
 module.exports.commandLogic = async itemsToImport => {
     const {interaction} = itemsToImport;
@@ -7,7 +7,8 @@ module.exports.commandLogic = async itemsToImport => {
     const mentionedUserID = Object.keys(interaction.data.resolved.users)[0]
     if (mentionedUserID === interaction.member.user.id) return interaction.createMessage({"flags":64, "content": "You cant kiss yourself."}).catch(err => console.error("Cannot send messages to this channel", err));
 
-    const kiss = await fetch((nekosLifeRandChance >= 0.5) ? 'https://purrbot.site/api/img/sfw/kiss/gif' : "https://anime-api.hisoka17.repl.co/img/kiss");
+    const ranChance = Number((Math.random() * 1).toFixed(1));
+    const kiss = await fetch((ranChance >= 0.5) ? 'https://purrbot.site/api/img/sfw/kiss/gif' : "https://anime-api.hisoka17.repl.co/img/kiss");
     const kissJSON = await kiss.json();
 
     interaction.createMessage({
@@ -15,7 +16,7 @@ module.exports.commandLogic = async itemsToImport => {
             "title": `${interaction.data.resolved.users[mentionedUserID].username} was kissed by ${interaction.member.user.username}`,
             "color": 2717868,
             "image": {
-                "url": kissJSON.link
+                "url": kissJSON[ranChance >= 0.5 ? "link" : "url"]
             }
         }]
     }).catch(err => console.error("Cannot send messages to this channel", err));
