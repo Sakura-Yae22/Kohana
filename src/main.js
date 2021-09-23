@@ -26,13 +26,11 @@ class BotWorker extends BaseClusterWorker {
             slashCommands.filter(name => name.endsWith(".js"));
             slashCommands.map(async slashCommand => {
                 const cmd = slashCommand.split(".js")[0];
-                
-                if (!names.includes(cmd)) {
-                    const {description, options} = require(`./slashCommands/${slashCommand}`);
-                    this.bot.createCommand({name: cmd, description: description, options: options, type: 1});
-                }
-
                 console.log(`[Slash Command Loaded] ${cmd}`);
+                
+                if (names.includes(cmd)) return;
+                const {description, options} = require(`./slashCommands/${slashCommand}`);
+                this.bot.createCommand({name: cmd, description: description, options: options, type: 1});
             });
         })();
     }
