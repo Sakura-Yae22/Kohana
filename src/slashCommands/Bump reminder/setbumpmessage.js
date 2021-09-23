@@ -20,3 +20,5 @@ module.exports.options = [
     "required": true,
   }
 ]
+
+module.exports.category = "Bump reminder" 

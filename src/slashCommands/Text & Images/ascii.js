@@ -19,3 +19,5 @@ module.exports.options = [
       "required": true,
     }
 ]
+
+module.exports.category = "Text & Images" 

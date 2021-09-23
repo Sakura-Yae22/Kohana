@@ -17,3 +17,5 @@ module.exports.commandLogic = async itemsToImport => {
 }
 
 module.exports.description = "Show an image of The Helpful Fox Senko-san"
+
+module.exports.category = "Anime" 

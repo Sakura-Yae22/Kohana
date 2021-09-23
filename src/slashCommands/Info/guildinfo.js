@@ -62,3 +62,5 @@ module.exports.commandLogic = async itemsToImport => {
 }
 
 module.exports.description = "Shows info about the about the guild"
+
+module.exports.category = "Info" 

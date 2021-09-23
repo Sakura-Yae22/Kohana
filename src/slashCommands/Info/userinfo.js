@@ -53,3 +53,5 @@ module.exports.options = [
     "required": false,
   }
 ]
+
+module.exports.category = "Info" 

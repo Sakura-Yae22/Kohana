@@ -17,3 +17,5 @@ module.exports.commandLogic = async itemsToImport => {
 }
 
 module.exports.description = "Wag your tail"
+
+module.exports.category = "Anime" 

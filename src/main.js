@@ -5,9 +5,6 @@ class BotWorker extends BaseClusterWorker {
     constructor(setup) {
         super(setup);
 
-        this.bot.slashCommands = new Map();
-        this.bot.registeredSlashCMDs = new Map();
-
         this.links = require('./settings/links.json');
         this.nekoslife = new nekoslife();
 
@@ -24,30 +21,18 @@ class BotWorker extends BaseClusterWorker {
                 console.log(`[Event Loaded] ${eventName}`);
             })
 
-            const botCommands = await this.bot.getCommands();
-            botCommands.map(registeredCMD => this.bot.registeredSlashCMDs.set(registeredCMD.name, registeredCMD.id))
+            const names = (await this.bot.getCommands()).map(registeredCMD => registeredCMD.name)
+            const slashCommands = await fs.readdir('slashCommands');
+            slashCommands.filter(name => name.endsWith(".js"));
+            slashCommands.map(async slashCommand => {
+                const cmd = slashCommand.split(".js")[0];
+                
+                if (!names.includes(cmd)) {
+                    const {description, options} = require(`./slashCommands/${slashCommand}`);
+                    this.bot.createCommand({name: cmd, description: description, options: options, type: 1});
+                }
 
-            // init slash commands
-            const slashCategories = await fs.readdir('slashCommands');
-            slashCategories.map(async category => {
-                const commands = await fs.readdir(`slashCommands/${category}`);
-                commands.filter(name => name.endsWith(".js"));
-                commands.map(command => {
-                    const {commandLogic, description, options} = require(`./slashCommands/${category}/${command}`);
-                    const cmd = command.split(".js")[0];
-                    this.bot.slashCommands.set(cmd, commandLogic);
-                 
-                    if (!this.bot.registeredSlashCMDs.has(cmd)){
-                        this.bot.createCommand({
-                            name: cmd,
-                            description: description,
-                            options: options,
-                            type: 1
-                        });
-                    }
-            
-                    console.log(`[Slash-command Loaded] ${cmd}`);
-                });
+                console.log(`[Slash Command Loaded] ${cmd}`);
             });
         })();
     }

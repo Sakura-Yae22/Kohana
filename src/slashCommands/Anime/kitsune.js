@@ -16,3 +16,5 @@ module.exports.commandLogic = async itemsToImport => {
 }
 
 module.exports.description = "Cute anime fox";
+
+module.exports.category = "Anime" 

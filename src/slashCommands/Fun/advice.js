@@ -10,3 +10,5 @@ module.exports.commandLogic = async itemsToImport => {
 }
 
 module.exports.description = "Some random advice"
+
+module.exports.category = "Fun" 

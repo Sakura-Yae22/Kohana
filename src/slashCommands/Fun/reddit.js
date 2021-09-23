@@ -66,3 +66,5 @@ module.exports.options = [
     ]
   }
 ]
+
+module.exports.category = "Fun" 

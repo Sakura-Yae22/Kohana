@@ -38,3 +38,5 @@ module.exports.commandLogic = async itemsToImport => {
 }
 
 module.exports.description = "Shows info about the bot"
+
+module.exports.category = "Info" 

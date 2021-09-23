@@ -6,3 +6,5 @@ module.exports.commandLogic = async itemsToImport => {
 }
 
 module.exports.description = "Shows the top bumpers of the week"
+
+module.exports.category = "Bump reminder" 

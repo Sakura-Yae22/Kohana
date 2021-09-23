@@ -18,3 +18,5 @@ module.exports.commandLogic = async itemsToImport => {
 }
 
 module.exports.description = "Shows a random neko image"
+
+module.exports.category = "Anime" 

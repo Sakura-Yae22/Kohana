@@ -18,3 +18,5 @@ module.exports.commandLogic = async itemsToImport => {
 }
 
 module.exports.description = "Get an image of Holo"
+
+module.exports.category = "Anime" 
