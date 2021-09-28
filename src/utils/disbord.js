@@ -2,7 +2,7 @@ module.exports =  async (message, sharder) => {
     if (message.embeds[0].description.includes(":thumbsup:") || (message.embeds[0].description.includes("Please wait another") && !message.embeds[0].description.includes("until you can bump"))) {
         const bumpFailed = (message.embeds[0].description.includes("Please wait another") && !message.embeds[0].description.includes("until you can bump"));
         const timetobump = new Date().getTime() + (bumpFailed ? ((parseInt(((message.embeds[0].description.split("another"))[1].split("minutes")[0]).replace(/ /g, ""))) * 60000) : 120 * 60000);
-       
+
         const massageArr = Array.from(message.channel.messages.keys())
         if (message.channel.messages.get(massageArr[massageArr.length-2]).content !== "!d bump") return;
         const bumperID = message.channel.messages.get(massageArr[massageArr.length-2]).author.id
