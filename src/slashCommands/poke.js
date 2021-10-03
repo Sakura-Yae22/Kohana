@@ -7,7 +7,8 @@ module.exports.commandLogic = async itemsToImport => {
     const mentionedUserID = interaction.data.resolved.users.keys().next().value
     if (mentionedUserID === interaction.member.user.id) return interaction.createMessage({"flags":64, "content": "You cant poke yourself."}).catch(err => console.error("Cannot send messages to this channel", err));
 
-    const poke = await fetch('https://purrbot.site/api/img/sfw/poke/gif');
+    const ranChance = Number((Math.random() * 1).toFixed(1));        
+    const poke = await fetch(ranChance>=0.5 ? 'https://purrbot.site/api/img/sfw/poke/gif' : 'https://nekos.best/api/v1/poke');
     const pokeJSON = await poke.json();
 
     interaction.createMessage({
