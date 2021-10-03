@@ -31,21 +31,14 @@ https://www.npmjs.com/package/anime-ext
 - giveaways 
 - server suggest 
 - crypto/stocks 
-- remove tracking from links 
 
 - tickets features
-- music  (spotify, yt)
-- a command where if you say number it says the next number(Bonus: if you wanna get more advance, do it but make it times or divide your numbeer
-- guess the number
-- econemy / bets 
-- say 
 - wiki
 - levels
 - games (Hangman, Rock Paper Scissors, button ticktacktoe)
 - image manipulation
 - web dashboard
 - youtube upload notifier
-- ai Chat bot (webhooks mabey)
 
 - zalgo
 - npm
@@ -56,10 +49,17 @@ https://www.npmjs.com/package/anime-ext
 - binary converter
 
 - leveling
-- gloabal chat
-- startboard
 - pronon selection using dropdowns and buttons
 - hex color info
+
+# ideas that require message intent
+- remove tracking from links 
+- a command where if you say number it says the next number(Bonus: if you wanna get more advance, do it but make it times or divide your numbeer
+- ai Chat bot (webhooks mabey)
+- gloabal chat
+- startboard
+- guess the number
+- econemy / bets 
 
 # nsfw commands to add (purrbot api)
 - p.blowjob <@user>
