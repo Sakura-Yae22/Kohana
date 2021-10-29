@@ -16,13 +16,13 @@ module.exports =  async (message, sharder) => {
             // update weekly lb
             const weeklyLB = await sharder.ipc.command("db", {text: 'SELECT * FROM weeklylb WHERE serverid = $1 AND userid = $2', values: [message.channel.guild.id, bumperID]}, true);
             if (weeklyLB.length===0) sharder.ipc.command("db", {text: 'INSERT INTO weeklylb (serverid, userid, bumps) VALUES ($1, $2, $3)', values: [message.channel.guild.id, bumperID, 1]});
-            else sharder.ipc.command("db", {text: 'UPDATE weeklylb SET bumps = $1 WHERE serverid = $2 AND userid = $3', values: [(weeklyLB[0].bumps)+1, message.channel.guild.id,bumperID]});
+            else sharder.ipc.command("db", {text: 'UPDATE weeklylb SET bumps = FLOOR(bumps) + 1 WHERE serverid = $1 AND userid = $2', values: [message.channel.guild.id,bumperID]});
             
             // update user's bumps
             const discordUser = message.channel.guild.members.get(bumperID)
             const users = await sharder.ipc.command("db", {text: 'SELECT * FROM users WHERE serverid = $1 AND userid = $2', values: [message.channel.guild.id, bumperID]}, true);
-            if (users.length===0) sharder.ipc.command("db", {text: 'INSERT INTO users (serverid, userid, username) VALUES ($1, $2, $3)', values: [message.channel.guild.id, bumperID, `${discordUser.username}#${discordUser.discriminator}`]});
-            else sharder.ipc.command("db", {text: 'UPDATE users SET bumps = $1, username = $2 WHERE serverid = $3 AND userid = $4', values: [(users[0].bumps)+1, `${discordUser.username}#${discordUser.discriminator}`, message.channel.guild.id, bumperID]});
+            if (users.length===0) sharder.ipc.command("db", {text: 'INSERT INTO users (serverid, userid, username, bumps) VALUES ($1, $2, $3, $4)', values: [message.channel.guild.id, bumperID, `${discordUser.username}#${discordUser.discriminator}`, 1]});
+            else sharder.ipc.command("db", {text: 'UPDATE users SET bumps = FLOOR(bumps) + 1, username = $1 WHERE serverid = $2 AND userid = $3', values: [`${discordUser.username}#${discordUser.discriminator}`, message.channel.guild.id, bumperID]});
         }
         
         message.channel.createMessage({"embeds": [{"title": bumpFailed ? "Bump Failed" : "Bumped", "description": `Next bump on: <t:${Math.floor(timetobump / 1000)}>`, "color": bumpFailed ? 15420513 : 5747894}]}).catch(err => console.error("Cannot send messages to this channel", err));
