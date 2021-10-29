@@ -1,12 +1,13 @@
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+const nekosDotLife = require("nekos.life"), nekoslife = new nekosDotLife();
 
 module.exports.commandLogic = async itemsToImport => {
-    const {interaction, sharder} = itemsToImport;
+    const {interaction} = itemsToImport;
 
     const ranChance = Number((Math.random() * 1).toFixed(1));
     const nekosLifeRandChance = Number((Math.random() * 1).toFixed(1));
     
-    const nekoJSON = (nekosLifeRandChance >= 0.5) ? await (await fetch(`https://purrbot.site/api/img/sfw/neko/${ranChance>=0.5 ? 'img' : 'gif'}`)).json() : await sharder.nekoslife.sfw.neko();
+    const nekoJSON = (nekosLifeRandChance >= 0.5) ? await (await fetch(`https://purrbot.site/api/img/sfw/neko/${ranChance>=0.5 ? 'img' : 'gif'}`)).json() : await nekoslife.sfw.neko();
 
     interaction.createMessage({"embeds": [{
     "title": "NEKO",

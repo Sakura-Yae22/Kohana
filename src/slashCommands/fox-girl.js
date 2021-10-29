@@ -1,7 +1,9 @@
-module.exports.commandLogic = async itemsToImport => {
-    const {interaction, sharder} = itemsToImport;
+const nekosDotLife = require("nekos.life"), nekoslife = new nekosDotLife();
 
-    const fox = await sharder.nekoslife.sfw.foxGirl();
+module.exports.commandLogic = async itemsToImport => {
+    const {interaction} = itemsToImport;
+
+    const fox = await nekoslife.sfw.foxGirl();
 
     interaction.createMessage( {
         "embeds": [{

@@ -1,7 +1,9 @@
+const nekosDotLife = require("nekos.life"), nekoslife = new nekosDotLife();
+
 module.exports.commandLogic = async itemsToImport => {
-    const {interaction, sharder} = itemsToImport;
+    const {interaction} = itemsToImport;
     
-    const wallpaper = await sharder.nekoslife.sfw.wallpaper();
+    const wallpaper = await nekoslife.sfw.wallpaper();
 
     interaction.createMessage({"embeds": [{
     "title": "Wallpaper",

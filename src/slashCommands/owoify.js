@@ -1,7 +1,9 @@
-module.exports.commandLogic = async itemsToImport => {
-    const {interaction, sharder} = itemsToImport;
+const nekosDotLife = require("nekos.life"), nekoslife = new nekosDotLife();
 
-    interaction.createMessage( (await sharder.nekoslife.sfw.OwOify({text: interaction.data.options[0].value})).owo).catch(err => console.error("Cannot send messages to this channel", err));
+module.exports.commandLogic = async itemsToImport => {
+    const {interaction} = itemsToImport;
+
+    interaction.createMessage( (await nekoslife.sfw.OwOify({text: interaction.data.options[0].value})).owo).catch(err => console.error("Cannot send messages to this channel", err));
 }
 
 module.exports.description = "Sometimes you just nyeed to owoify youw speech"

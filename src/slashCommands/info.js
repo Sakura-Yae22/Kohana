@@ -1,6 +1,6 @@
 module.exports.commandLogic = async itemsToImport => {
     const {sharder, interaction} = itemsToImport;    
-    const stats = await this.ipc.getStats();
+    const stats = await sharder.ipc.getStats();
 
     const embeds = {
         "embeds": [
@@ -31,7 +31,7 @@ module.exports.commandLogic = async itemsToImport => {
         ]
     };
     
-    Object.keys(sharder.links.display).map(name => embeds.components[0].components.push({"type": 2, "label": name, "style": 5, "url": sharder.links.display[name]}))
+    await (await sharder.ipc.command("db", {text: 'SELECT * FROM links', values: []}, true)).map(displayLink => embeds.components[0].components.push({"type": 2, "label": displayLink.name, "style": 5, "url": displayLink.value}))
 
     interaction.createMessage(embeds).catch(err => console.error("Cannot send messages to this channel", err));        
 }

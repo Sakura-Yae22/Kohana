@@ -1,15 +1,17 @@
 module.exports.commandLogic = async itemsToImport => {
     const {interaction, sharder} = itemsToImport
-    const help = {
-        "embeds": [
-            {
-                "title": "Help",
-                "description": `Below is a list of my commands. For further help you can join the [support server](${sharder.links.display["Support server"]})`,
-                "fields": [],
-                "color": 2717868,
-            }
-        ]
-    }
+    // const help = {
+    //     "embeds": [
+    //         {
+    //             "title": "Help",
+    //             "description": `Below is a list of my commands. For further help you can join the [support server](${(await sharder.ipc.command("db", {text: 'SELECT * FROM links WHERE id = $1', values: ['support']}, true))[0].value}`,
+    //             "fields": [],
+    //             "color": 2717868,
+    //         }
+    //     ]
+    // }
+
+    console.log(await sharder.ipc.command("db", {text: 'SELECT * FROM links WHERE id = $1', values: ['support']}, true))
 
     const slashCommand = await sharder.bot.getCommands();
     slashCommand.map(command => {
