@@ -1,6 +1,6 @@
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
-module.exports.commandLogic = async itemsToImport => {
+export const commandLogic = async itemsToImport => {
   const { interaction } = itemsToImport;
 
   const subs = ["memes", "meme", "dankmemes"]
@@ -24,6 +24,6 @@ module.exports.commandLogic = async itemsToImport => {
   ).catch(err => console.error("Cannot send messages to this channel", err));
 }
 
-module.exports.description = "Gets a random meme from reddit"
+export const description = "Gets a random meme from reddit"
 
-module.exports.category = "Fun" 
+export const category = "Fun" 

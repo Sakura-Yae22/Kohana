@@ -1,4 +1,4 @@
-module.exports.commandLogic = async itemsToImport => {
+export const commandLogic = async itemsToImport => {
   const { interaction } = itemsToImport;
 
   const member = interaction.member.guild.members.get(interaction.data.options?.[0].value) ?? interaction.member;
@@ -43,9 +43,9 @@ module.exports.commandLogic = async itemsToImport => {
   }).catch(err => console.error("Cannot send messages to this channel", err));
 }
 
-module.exports.description = "Shows info about the about a guild member"
+export const description = "Shows info about the about a guild member"
 
-module.exports.options = [
+export const options = [
   {
     "name": "user",
     "description": "The user to get info about",
@@ -54,4 +54,4 @@ module.exports.options = [
   }
 ]
 
-module.exports.category = "Info" 
+export const category = "Info" 

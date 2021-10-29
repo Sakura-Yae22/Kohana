@@ -1,6 +1,6 @@
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
-module.exports.commandLogic = async itemsToImport => {
+export const commandLogic = async itemsToImport => {
   const { interaction } = itemsToImport;
 
   const sub = interaction.data.options[0].value
@@ -36,9 +36,9 @@ module.exports.commandLogic = async itemsToImport => {
   ).catch(err => console.error("Cannot send messages to this channel", err));
 }
 
-module.exports.description = "Shows a post from a subreddit"
+export const description = "Shows a post from a subreddit"
 
-module.exports.options = [
+export const options = [
   {
     "name": "subreddit",
     "description": "The Reddit comunity to get a post from",
@@ -67,4 +67,4 @@ module.exports.options = [
   }
 ]
 
-module.exports.category = "Fun" 
+export const category = "Fun" 

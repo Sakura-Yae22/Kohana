@@ -1,0 +1,12 @@
+
+            // const names = (await this.bot.getCommands()).map(registeredCMD => registeredCMD.name)
+            // const slashCommands = await fs.readdir('slashCommands');
+            // slashCommands.filter(name => name.endsWith(".js"));
+            // slashCommands.map(async slashCommand => {
+            //     const name = slashCommand.split(".js")[0];
+            //     console.log(`[Slash Command Loaded] ${name}`);
+                
+            //     if (names.includes(name)) return;
+            //     const {description, options} = require(`./slashCommands/${slashCommand}`);
+            //     this.bot.createCommand({name, description, options, type: 1});
+            // });

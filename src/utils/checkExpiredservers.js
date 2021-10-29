@@ -1,4 +1,4 @@
-module.exports = async (sharder, dailyCheck) => {
+export default async (sharder, dailyCheck) => {
     const today = new Date();
 
     // delete weeklylb every week

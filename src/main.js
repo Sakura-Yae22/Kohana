@@ -1,12 +1,9 @@
 // require libs and files
-const { BaseClusterWorker } = require('eris-fleet'), Eris = require("eris"), fs = require('fs/promises'), nekoslife = require("nekos.life"), cron = require('node-cron'), checkExpiredservers = require('./utils/checkExpiredservers');
+const { BaseClusterWorker } = require('eris-fleet'), Eris = require("eris"), cron = require('node-cron'), checkExpiredservers = require('./utils/checkExpiredservers');
 
 class BotWorker extends BaseClusterWorker {
     constructor(setup) {
         super(setup);
-
-        this.links = require('./settings/links.json');
-        this.nekoslife = new nekoslife();
 
         (async () => {
             // checkExpiredservers
@@ -14,24 +11,11 @@ class BotWorker extends BaseClusterWorker {
             cron.schedule("* * * * *", () => { checkExpiredservers(this, false) });
 
             // init events
-            const events = await fs.readdir('events');
+            const events = ["interactionCreate", "messageCreate"];
             events.map(async event => {
-                const eventName = event.split(".")[0];
-                this.bot.on(eventName, require(`./events/${event}`).bind(null, this));
-                console.log(`[Event Loaded] ${eventName}`);
+                this.bot.on(event, require(`./events/${event}.js`).bind(null, this));
+                console.log(`[Event Loaded] ${event}`);
             })
-
-            const names = (await this.bot.getCommands()).map(registeredCMD => registeredCMD.name)
-            const slashCommands = await fs.readdir('slashCommands');
-            slashCommands.filter(name => name.endsWith(".js"));
-            slashCommands.map(async slashCommand => {
-                const cmd = slashCommand.split(".js")[0];
-                console.log(`[Slash Command Loaded] ${cmd}`);
-                
-                if (names.includes(cmd)) return;
-                const {description, options} = require(`./slashCommands/${slashCommand}`);
-                this.bot.createCommand({name: cmd, description: description, options: options, type: 1});
-            });
         })();
     }
 
@@ -40,4 +24,4 @@ class BotWorker extends BaseClusterWorker {
     }
 }
 
-module.exports = { BotWorker, Eris };
+export { BotWorker, Eris };

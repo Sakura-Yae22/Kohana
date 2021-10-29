@@ -1,6 +1,6 @@
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
-module.exports.commandLogic = async itemsToImport => {
+export const commandLogic = async itemsToImport => {
     const {interaction} = itemsToImport;
 
     const senko = await fetch('https://purrbot.site/api/img/sfw/senko/img');
@@ -16,6 +16,6 @@ module.exports.commandLogic = async itemsToImport => {
     }]).catch(err => console.error("Cannot send messages to this channel", err));
 }
 
-module.exports.description = "Show an image of The Helpful Fox Senko-san"
+export const description = "Show an image of The Helpful Fox Senko-san"
 
-module.exports.category = "Anime" 
+export const category = "Anime" 

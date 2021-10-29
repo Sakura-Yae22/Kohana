@@ -1,5 +1,5 @@
 
-module.exports.commandLogic = async itemsToImport => {
+export const commandLogic = async itemsToImport => {
     const { interaction } = itemsToImport;
 
     interaction.createMessage({
@@ -13,9 +13,9 @@ module.exports.commandLogic = async itemsToImport => {
     }).catch(err => console.error("Cannot send messages to this channel", err));
 }
 
-module.exports.description = "Creates a Minecraft like achievement banner"
+export const description = "Creates a Minecraft like achievement banner"
 
-module.exports.options = [
+export const options = [
     {
       "name": "text",
       "description": "The text to be turned into an achievement",
@@ -24,4 +24,4 @@ module.exports.options = [
     }
 ]
 
-module.exports.category = "Text & Images" 
+export const category = "Text & Images" 

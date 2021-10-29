@@ -5,7 +5,7 @@ const pgclient = new PG(Postgrelogin);
 types.setTypeParser(1700, 'text', parseFloat);
 pgclient.connect(err => console.log(`postgres connected and ready`))
 
-module.exports = class ServiceWorker extends BaseServiceWorker {
+export class ServiceWorker extends BaseServiceWorker {
     constructor(setup) {
         super(setup);
         this.serviceReady();

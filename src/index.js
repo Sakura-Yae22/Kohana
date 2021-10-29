@@ -1,7 +1,7 @@
 const {Fleet} = require('eris-fleet'), {inspect} = require('util'), path = require('path');
 
 (async()=>{
-	const {botToken, MaxShards, Postgrelogin} = require('/static/config.json');
+	const {botToken, MaxShards} = require('./static/config.json');
 	
 	const Admiral = new Fleet({
 		path: path.join(__dirname, "/main.js"),
@@ -62,6 +62,4 @@ const {Fleet} = require('eris-fleet'), {inspect} = require('util'), path = requi
 		Admiral.on('warn', m => console.warn(m));
 		Admiral.on('error', m => console.error(inspect(m)));
 	}
-
-	module.exports.Postgrelogin = Postgrelogin
 })()

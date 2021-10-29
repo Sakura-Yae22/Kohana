@@ -1,4 +1,4 @@
-module.exports.commandLogic = async itemsToImport => {
+export const commandLogic = async itemsToImport => {
   const { interaction, sharder } = itemsToImport;
   
   if (!interaction.member.permissions.has("administrator")) return interaction.createMessage({"flags":64, "embeds": [{"title": `Error`, "description": "You must be the owner of this server or an administrator.","color": 5747894}]}).catch(err => console.error("Cannot send messages to this channel", err));
@@ -10,9 +10,9 @@ module.exports.commandLogic = async itemsToImport => {
   interaction.createMessage({ "embeds": [{ "title": `Done`, "description": "The new reminder message for this server is: `" + interaction.data.options[0].value + "`", "color": 5747894 }] }).catch(err => console.error("Cannot send messages to this channel", err));
 }
 
-module.exports.description = "🔑 Allows you to change the bump reminder message"
+export const description = "🔑 Allows you to change the bump reminder message"
 
-module.exports.options = [
+export const options = [
   {
     "name": "text",
     "description": "The message to be sent when it is time to bump",
@@ -21,4 +21,4 @@ module.exports.options = [
   }
 ]
 
-module.exports.category = "Bump reminder" 
+export const category = "Bump reminder" 

@@ -1,6 +1,6 @@
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
-module.exports.commandLogic = async itemsToImport => {
+export const commandLogic = async itemsToImport => {
     const {interaction} = itemsToImport;
 
     if (!interaction.data.resolved) return interaction.createMessage({"flags":64, "content": "Please mention a user."}).catch(err => console.error("Cannot send messages to this channel", err));
@@ -21,9 +21,9 @@ module.exports.commandLogic = async itemsToImport => {
     }).catch(err => console.error("Cannot send messages to this channel", err));
 }
 
-module.exports.description = "Slap a user"
+export const description = "Slap a user"
 
-module.exports.options = [
+export const options = [
     {
         "name": "user", 
         "description": "The user to slap",
@@ -32,4 +32,4 @@ module.exports.options = [
     },
 ]
 
-module.exports.category = "Actions" 
+export const category = "Actions" 

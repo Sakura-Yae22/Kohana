@@ -1,6 +1,6 @@
 const figlet = require('figlet');
 
-module.exports.commandLogic = async itemsToImport => {
+export const commandLogic = async itemsToImport => {
     const { interaction } = itemsToImport;
     figlet(interaction.data.options[0].value, function (err, ascii) {
         if (err) return interaction.createMessage({"flags":64, "content": "error making ASCII art"}).catch(err => console.error("Cannot send messages to this channel", err));
@@ -8,10 +8,10 @@ module.exports.commandLogic = async itemsToImport => {
     });
 }
 
-module.exports.description = "Converts text to ASCII art"
+export const description = "Converts text to ASCII art"
 
 
-module.exports.options = [
+export const options = [
     {
       "name": "text",
       "description": "The text to convert to ASCII art",
@@ -20,4 +20,4 @@ module.exports.options = [
     }
 ]
 
-module.exports.category = "Text & Images" 
+export const category = "Text & Images" 

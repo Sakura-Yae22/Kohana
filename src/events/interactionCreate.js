@@ -1,5 +1,4 @@
-module.exports = async(sharder, interaction) => {
-    if (!(await sharder.bot.getCommand(interaction.data.id))) return;
+export default async(sharder, interaction) => {
     const {commandLogic} = require(`../slashCommands/${interaction.data.name}`);
     commandLogic({interaction, sharder});
 }

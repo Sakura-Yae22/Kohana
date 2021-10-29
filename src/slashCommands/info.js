@@ -1,4 +1,4 @@
-module.exports.commandLogic = async itemsToImport => {
+export const commandLogic = async itemsToImport => {
     const {sharder, interaction} = itemsToImport;    
     const stats = await sharder.ipc.getStats();
 
@@ -36,6 +36,6 @@ module.exports.commandLogic = async itemsToImport => {
     interaction.createMessage(embeds).catch(err => console.error("Cannot send messages to this channel", err));        
 }
 
-module.exports.description = "Shows info about the bot"
+export const description = "Shows info about the bot"
 
-module.exports.category = "Info" 
+export const category = "Info" 

@@ -1,4 +1,4 @@
-module.exports.commandLogic = async itemsToImport => {
+export const commandLogic = async itemsToImport => {
     const {interaction, sharder} = itemsToImport
     // const help = {
     //     "embeds": [
@@ -27,6 +27,6 @@ module.exports.commandLogic = async itemsToImport => {
     interaction.createMessage(help).catch(err => console.error("Cannot send messages to this channel"));
 }
 
-module.exports.description = "Lists all commands"
+export const description = "Lists all commands"
 
-module.exports.category = "Info" 
+export const category = "Info" 

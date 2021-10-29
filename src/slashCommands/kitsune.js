@@ -1,6 +1,6 @@
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
-module.exports.commandLogic = async itemsToImport => {
+export const commandLogic = async itemsToImport => {
     const {interaction} = itemsToImport;
     const kitsune = await fetch('https://purrbot.site/api/img/sfw/kitsune/img');
     const kitsuneJSON = await kitsune.json();
@@ -15,6 +15,6 @@ module.exports.commandLogic = async itemsToImport => {
     }).catch(err => console.error("Cannot send messages to this channel", err));
 }
 
-module.exports.description = "Cute anime fox";
+export const description = "Cute anime fox";
 
-module.exports.category = "Anime" 
+export const category = "Anime" 

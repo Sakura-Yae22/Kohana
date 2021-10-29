@@ -1,6 +1,6 @@
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
-module.exports.commandLogic = async itemsToImport => {
+export const commandLogic = async itemsToImport => {
     const {interaction} = itemsToImport;
 
     const cry = await fetch("https://shiro.gg/api/images/cry");
@@ -17,6 +17,6 @@ module.exports.commandLogic = async itemsToImport => {
     }).catch(err => console.error("Cannot send messages to this channel", err));
 }
 
-module.exports.description = "Sometimes you just need to cry"
+export const description = "Sometimes you just need to cry"
 
-module.exports.category = "Emotions" 
+export const category = "Emotions" 

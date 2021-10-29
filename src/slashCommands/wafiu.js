@@ -1,6 +1,6 @@
 const nekosDotLife = require("nekos.life"), nekoslife = new nekosDotLife();
 
-module.exports.commandLogic = async itemsToImport => {
+export const commandLogic = async itemsToImport => {
     const {interaction} = itemsToImport;
 
     const waifu = await nekoslife.sfw.waifu();
@@ -14,6 +14,6 @@ module.exports.commandLogic = async itemsToImport => {
     }]}).catch(err => console.error("Cannot send messages to this channel", err));
 }
 
-module.exports.description = "Shows a random waifu image"
+export const description = "Shows a random waifu image"
 
-module.exports.category = "Anime" 
+export const category = "Anime" 
