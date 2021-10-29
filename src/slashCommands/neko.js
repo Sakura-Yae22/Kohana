@@ -1,4 +1,4 @@
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+import fetch from 'node-fetch'
 const nekosDotLife = require("nekos.life"), nekoslife = new nekosDotLife();
 
 export const commandLogic = async itemsToImport => {
