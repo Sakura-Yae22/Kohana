@@ -1,7 +1,7 @@
 module.exports.commandLogic = async itemsToImport => {
   const { interaction, sharder } = itemsToImport;
   
-  if (!interaction.member.permission.has("administrator")) return interaction.createMessage({"flags":64, "embeds": [{"title": `Error`, "description": "You must be the owner of this server or an administrator.","color": 5747894}]}).catch(err => console.error("Cannot send messages to this channel", err));
+  if (!interaction.member.permissions.has("administrator")) return interaction.createMessage({"flags":64, "embeds": [{"title": `Error`, "description": "You must be the owner of this server or an administrator.","color": 5747894}]}).catch(err => console.error("Cannot send messages to this channel", err));
 
   const guild = await sharder.ipc.command("db", { text: 'SELECT * FROM guilds WHERE serverid = $1', values: [interaction.member.guild.id] }, true);
   if (guild.length === 0) return interaction.createMessage({"flags":64, "embeds": [{ "title": `Error`, "description": "Make a disbord bump first", "color": 5747894 }] }).catch(err => console.error("Cannot send messages to this channel", err));
