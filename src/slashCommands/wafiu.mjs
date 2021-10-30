@@ -1,4 +1,5 @@
-const nekosDotLife = require("nekos.life"), nekoslife = new nekosDotLife();
+import nekosDotLife from "nekos.life";
+const nekoslife = new nekosDotLife();
 
 export const commandLogic = async itemsToImport => {
     const {interaction} = itemsToImport;

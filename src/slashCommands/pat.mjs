@@ -1,33 +1,34 @@
 import fetch from 'node-fetch'
-const nekosDotLife = require("nekos.life"), nekoslife = new nekosDotLife();
+import nekosDotLife from "nekos.life";
+const nekoslife = new nekosDotLife();
 
 export const commandLogic = async itemsToImport => {
     const {interaction} = itemsToImport;
 
     if (!interaction.data.resolved) return interaction.createMessage({"flags":64, "content": "Please mention a user."}).catch(err => console.error("Cannot send messages to this channel", err));
     const mentionedUserID = interaction.data.resolved.users.keys().next().value
-    if (mentionedUserID === interaction.member.user.id) return interaction.createMessage({"flags":64, "content": "You cant cuddle yourself."}).catch(err => console.error("Cannot send messages to this channel", err));
+    if (mentionedUserID === interaction.member.user.id) return interaction.createMessage({"flags":64, "content": "You cant pat yourself."}).catch(err => console.error("Cannot send messages to this channel", err));
 
     const ranChance = Number((Math.random() * 1).toFixed(1));
-    const cuddle = ranChance>=0.5 ? await (await fetch('https://purrbot.site/api/img/sfw/cuddle/gif')).json() : await nekoslife.sfw.cuddle();
+    const pat = ranChance>=0.5 ? await (await fetch('https://purrbot.site/api/img/sfw/pat/gif')).json() : await nekoslife.sfw.pat();
     
     interaction.createMessage({
         "embeds": [{
-            "title": `${interaction.data.resolved.users.get(mentionedUserID).username} was cuddled by ${interaction.member.user.username}`,
+            "title": `${interaction.data.resolved.users.get(mentionedUserID).username} was patted by ${interaction.member.user.username}`,
             "color": 2717868,
             "image": {
-                "url": cuddle[ranChance>=0.5 ? "link" : "url"]
+                "url": pat[ranChance>=0.5 ? "link" : "url"]
             }
         }]
     }).catch(err => console.error("Cannot send messages to this channel", err));
 }
- 
-export const description = "Cuddle someone"
+
+export const description = "Pat someone on the head"
 
 export const options = [
     {
-        "name": "user",
-        "description": "The user to cuddle",
+        "name": "user", 
+        "description": "The user to pat",
         "type": 6,
         "required": true,
     }

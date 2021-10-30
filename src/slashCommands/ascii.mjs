@@ -1,4 +1,4 @@
-const figlet = require('figlet');
+import figlet from 'figlet'
 
 export const commandLogic = async itemsToImport => {
     const { interaction } = itemsToImport;

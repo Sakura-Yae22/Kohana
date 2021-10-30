@@ -1,4 +1,4 @@
 export default async(sharder, interaction) => {
-    const {commandLogic} = require(`../slashCommands/${interaction.data.name}`);
+    const {commandLogic} = await import(`../slashCommands/${interaction.data.name}.mjs`);
     commandLogic({interaction, sharder});
 }

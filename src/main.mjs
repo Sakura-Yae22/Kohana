@@ -1,5 +1,8 @@
 // require libs and files
-const { BaseClusterWorker } = require('eris-fleet'), Eris = require("eris"), cron = require('node-cron'), checkExpiredservers = require('./utils/checkExpiredservers');
+import { BaseClusterWorker } from 'eris-fleet';
+import Eris from "eris";
+import cron from 'node-cron';
+import checkExpiredservers from './utils/checkExpiredservers.mjs';
 
 class BotWorker extends BaseClusterWorker {
     constructor(setup) {
@@ -13,7 +16,8 @@ class BotWorker extends BaseClusterWorker {
             // init events
             const events = ["interactionCreate", "messageCreate"];
             events.map(async event => {
-                this.bot.on(event, require(`./events/${event}.js`).bind(null, this));
+                const eventFuntion = await import(`./events/${event}.mjs`)
+                this.bot.on(event, eventFuntion.default.bind(null, this));
                 console.log(`[Event Loaded] ${event}`);
             })
         })();

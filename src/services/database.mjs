@@ -1,7 +1,9 @@
-const {BaseServiceWorker} = require('eris-fleet'), {Client: PG, types} = require('pg');
+import {BaseServiceWorker} from 'eris-fleet';
+import pkg from 'pg';
+const {Client, types} = pkg;
+import {Postgrelogin} from '../static/config.mjs'
 
-const {Postgrelogin} = require('../index')
-const pgclient = new PG(Postgrelogin);
+const pgclient = new Client(Postgrelogin);
 types.setTypeParser(1700, 'text', parseFloat);
 pgclient.connect(err => console.log(`postgres connected and ready`))
 

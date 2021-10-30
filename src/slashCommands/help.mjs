@@ -14,8 +14,8 @@ export const commandLogic = async itemsToImport => {
     console.log(await sharder.ipc.command("db", {text: 'SELECT * FROM links WHERE id = $1', values: ['support']}, true))
 
     const slashCommand = await sharder.bot.getCommands();
-    slashCommand.map(command => {
-        const {category} = require(`./${command.name}.js`)
+    slashCommand.map(async command => {
+        const {category} = await import(`./${command.name}.mjs`)
         const catagoryIndex = help.embeds[0].fields.findIndex(element => element.name === category);
 
         if (catagoryIndex == -1) help.embeds[0].fields.push({ "name": category, "value": `\`\`\`\n${command.name}\n`, "inline": true })

@@ -1,5 +1,5 @@
-const {BaseServiceWorker} = require('eris-fleet');
-const addPadding = (...args) => import('../utils/addPadding.mjs').then(({default: addPadding}) => addPadding(...args));
+import {BaseServiceWorker} from ('eris-fleet');
+import addPadding from '../utils/addPadding.mjs'
 
 export class ServiceWorker extends BaseServiceWorker {
     constructor(setup) {
