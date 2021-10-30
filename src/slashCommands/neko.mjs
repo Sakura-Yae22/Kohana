@@ -1,20 +1,16 @@
 import fetch from 'node-fetch'
-import nekosDotLife from "nekos.life";
-const nekoslife = new nekosDotLife();
 
 export const commandLogic = async itemsToImport => {
     const {interaction} = itemsToImport;
 
-    const ranChance = Number((Math.random() * 1).toFixed(1));
-    const nekosLifeRandChance = Number((Math.random() * 1).toFixed(1));
-    
-    const nekoJSON = (nekosLifeRandChance >= 0.5) ? await (await fetch(`https://purrbot.site/api/img/sfw/neko/${ranChance>=0.5 ? 'img' : 'gif'}`)).json() : await nekoslife.sfw.neko();
+    const ranChance = Number((Math.random() * 1).toFixed(1));    
+    const nekoJSON = await (await fetch(`https://purrbot.site/api/img/sfw/neko/${ranChance>=0.5 ? 'img' : 'gif'}`)).json()
 
     interaction.createMessage({"embeds": [{
     "title": "NEKO",
         "color": 2717868,
         "image": {
-            "url": nekoJSON[nekosLifeRandChance >= 0.5 ? "link" : "url"]
+            "url": nekoJSON.link
         }
     }]}).catch(err => console.error("Cannot send messages to this channel", err));
 }
