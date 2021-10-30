@@ -1,10 +1,11 @@
-import nekosDotLife from "nekos.life";
-const nekoslife = new nekosDotLife();
+import fetch from 'node-fetch'
 
 export const commandLogic = async itemsToImport => {
     const {interaction} = itemsToImport;
 
-    interaction.createMessage( (await nekoslife.sfw.OwOify({text: interaction.data.options[0].value})).owo).catch(err => console.error("Cannot send messages to this channel", err));
+    const owo = await (await fetch(`https://nekos.life/api/v2/owoify?text=${interaction.data.options[0].value}`)).json()
+
+    interaction.createMessage(owo.owo).catch(err => console.error("Cannot send messages to this channel", err));
 }
 
 export const description = "Sometimes you just nyeed to owoify youw speech"
@@ -18,4 +19,4 @@ export const options = [
     }
 ]
 
-export const category = "Text & Images" 
+export const category = "Text & Images"
