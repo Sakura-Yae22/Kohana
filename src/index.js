@@ -12,7 +12,7 @@ const Admiral = new Fleet({
 	token: botToken,
 	shards: MaxShards,
 	guildsPerShard: 1500,
-	statsInterval: 'disable',
+	statsInterval: 1000,
 	whatToLog: {
 		blacklist:[
 			"stats_update"
