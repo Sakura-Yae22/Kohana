@@ -5,7 +5,8 @@ export default async (message, sharder) => {
 
         const massageArr = Array.from(message.channel.messages.keys())
         if (message.channel.messages.get(massageArr[massageArr.length-2]).content.toLowerCase() !== "!d bump") return;
-        const bumperID = message.channel.messages.get(massageArr[massageArr.length-2]).author.id
+
+        const bumper = message.channel.messages.get(massageArr[massageArr.length-2]).author
 
         // set next bump time
         const correctBumpGuild = await sharder.ipc.command("db", {text: 'SELECT * FROM guilds WHERE serverid = $1', values: [message.channel.guild.id]}, true);
@@ -14,15 +15,14 @@ export default async (message, sharder) => {
        
         if (!bumpFailed){
             // update weekly lb
-            const weeklyLB = await sharder.ipc.command("db", {text: 'SELECT * FROM weeklylb WHERE serverid = $1 AND userid = $2', values: [message.channel.guild.id, bumperID]}, true);
-            if (weeklyLB.length===0) sharder.ipc.command("db", {text: 'INSERT INTO weeklylb (serverid, userid, bumps) VALUES ($1, $2, $3)', values: [message.channel.guild.id, bumperID, 1]});
-            else sharder.ipc.command("db", {text: 'UPDATE weeklylb SET bumps = FLOOR(bumps) + 1 WHERE serverid = $1 AND userid = $2', values: [message.channel.guild.id,bumperID]});
+            const weeklyLB = await sharder.ipc.command("db", {text: 'SELECT * FROM weeklylb WHERE serverid = $1 AND userid = $2', values: [message.channel.guild.id, bumper.id]}, true);
+            if (weeklyLB.length===0) sharder.ipc.command("db", {text: 'INSERT INTO weeklylb (serverid, userid, bumps, username) VALUES ($1, $2, $3, $4)', values: [message.channel.guild.id, bumper.id, 1, `${bumper.username}#${bumper.discriminator}`]});
+            else sharder.ipc.command("db", {text: 'UPDATE weeklylb SET bumps = FLOOR(bumps) + 1 WHERE serverid = $1 AND userid = $2', values: [message.channel.guild.id,bumper.id]});
             
             // update user's bumps
-            const discordUser = message.channel.guild.members.get(bumperID)
-            const users = await sharder.ipc.command("db", {text: 'SELECT * FROM users WHERE serverid = $1 AND userid = $2', values: [message.channel.guild.id, bumperID]}, true);
-            if (users.length===0) sharder.ipc.command("db", {text: 'INSERT INTO users (serverid, userid, username, bumps) VALUES ($1, $2, $3, $4)', values: [message.channel.guild.id, bumperID, `${discordUser.username}#${discordUser.discriminator}`, 1]});
-            else sharder.ipc.command("db", {text: 'UPDATE users SET bumps = FLOOR(bumps) + 1, username = $1 WHERE serverid = $2 AND userid = $3', values: [`${discordUser.username}#${discordUser.discriminator}`, message.channel.guild.id, bumperID]});
+            const users = await sharder.ipc.command("db", {text: 'SELECT * FROM users WHERE serverid = $1 AND userid = $2', values: [message.channel.guild.id, bumper.id]}, true);
+            if (users.length===0) sharder.ipc.command("db", {text: 'INSERT INTO users (serverid, userid, username, bumps) VALUES ($1, $2, $3, $4)', values: [message.channel.guild.id, bumper.id, `${bumper.username}#${bumper.discriminator}`, 1]});
+            else sharder.ipc.command("db", {text: 'UPDATE users SET bumps = FLOOR(bumps) + 1, username = $1 WHERE serverid = $2 AND userid = $3', values: [`${bumper.username}#${bumper.discriminator}`, message.channel.guild.id, bumper.id]});
         }
         
         message.channel.createMessage({"embeds": [{"title": bumpFailed ? "Bump Failed" : "Bumped", "description": `Next bump on: <t:${Math.floor(timetobump / 1000)}>`, "color": bumpFailed ? 15420513 : 5747894}]}).catch(err => console.error("Cannot send messages to this channel", err));
