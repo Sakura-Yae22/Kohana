@@ -24,18 +24,14 @@ export const commandLogic = async itemsToImport => {
         "components": [
             {
                 "type": 1, 
-                "components": [
-
-                ]
+                "components": (await sharder.ipc.command("db", {text: 'SELECT name as label, value as url FROM links', values: []}, true)).map(({label, url})=>{return {"type": 2, "style": 5, label, url}})
             }
         ]
     };
     
-    await (await sharder.ipc.command("db", {text: 'SELECT * FROM links', values: []}, true)).map(displayLink => embeds.components[0].components.push({"type": 2, "label": displayLink.name, "style": 5, "url": displayLink.value}))
-
     interaction.createMessage(embeds).catch(err => console.error("Cannot send messages to this channel", err));        
 }
 
 export const description = "Shows info about the bot"
 
-export const category = "Info" 
+export const category = "Info"
