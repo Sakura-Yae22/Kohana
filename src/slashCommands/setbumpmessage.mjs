@@ -7,7 +7,7 @@ export const commandLogic = async itemsToImport => {
   if (guild.length === 0) return interaction.createMessage({"flags":64, "embeds": [{ "title": `Error`, "description": "Make a disbord bump first", "color": 5747894 }] }).catch(err => console.error("Cannot send messages to this channel", err));
 
   sharder.ipc.command("db", { text: 'UPDATE guilds SET bumpmessage = $1  WHERE serverid = $2', values: [interaction.data.options[0].value, interaction.member.guild.id] });
-  interaction.createMessage({ "embeds": [{ "title": `Done`, "description": "The new reminder message for this server is: `" + interaction.data.options[0].value + "`", "color": 5747894 }] }).catch(err => console.error("Cannot send messages to this channel", err));
+  interaction.createMessage({ "embeds": [{ "title": `The new reminder message for this server is:`, "description": interaction.data.options[0].value, "color": 5747894 }] }).catch(err => console.error("Cannot send messages to this channel", err));
 }
 
 export const description = "🔑 Allows you to change the bump reminder message"
