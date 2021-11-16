@@ -5,6 +5,13 @@ import cron from 'node-cron';
 import checkExpiredservers from './utils/checkExpiredservers.mjs';
 import fs from 'fs/promises';
 
+const arrayToObject1 = (arr, key) => {
+    return arr.reduce((obj, item) => {
+        obj[item[key]] = item
+        return obj
+    }, {})
+}
+
 class BotWorker extends BaseClusterWorker {
     constructor(setup) {
         super(setup);
@@ -22,17 +29,17 @@ class BotWorker extends BaseClusterWorker {
                 console.log(`[Event Loaded] ${event}`);
             })
 
-            const names = (await this.bot.getCommands()).map(registeredCMD => registeredCMD.name)
-            const slashCommands = await fs.readdir('slashCommands');
+            const names = arrayToObject1(await sharder.bot.getCommands(), "name")
+            const slashCommands = await fs.readdir('./slashCommands');
             slashCommands.filter(name => name.endsWith(".mjs"));
             slashCommands.map(async slashCommand => {
                 const name = slashCommand.split(".mjs")[0];
-                console.log(`[Slash Command Loaded] ${name}`);
-                
-                if (names.includes(name)) return;
+
+                if (names[name].id) return;
+        
                 const {description, options} = await import(`./slashCommands/${slashCommand}`);
                 this.bot.createCommand({name, description, options, type: 1});
-            });
+        });
         })();
     }
 
