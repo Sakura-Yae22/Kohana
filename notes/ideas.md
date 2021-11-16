@@ -15,6 +15,12 @@ https://haveibeenpwned.com/APIDocs/V3
 
 https://opentdb.com/api_config.php
 
+https://api.truthordarebot.xyz/api/truth
+
+https://popcat.xyz/api
+
+https://github.com/Andre601/anti-phishing-database 
+
 
 # libs that could be added
 https://canvacord.js.org/docs/main/main/general/welcome
@@ -51,6 +57,7 @@ https://www.npmjs.com/package/anime-ext
 - leveling
 - pronon selection using dropdowns and buttons
 - hex color info
+- cowfortune
 
 # ideas that require message intent
 - remove tracking from links 

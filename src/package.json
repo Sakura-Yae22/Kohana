@@ -1,20 +1,11 @@
 {
-  "author": "numselli",
-  "version": "1.0.0",
-  "description": "Never miss out on bumping disboard",
-  "main": "index.js",
-  "scripts": {
-    "index": "index.js"
-  },
+  "type": "module",
   "dependencies": {
-    "eris": "github:Catboi8/eris#interactions",
-    "eris-fleet": "^0.3.9",
+    "eris": "github:DonovanDMC/eris#everything",
+    "eris-fleet": "github:danclay/eris-fleet#dev",
     "figlet": "^1.5.2",
-    "nekos.life": "^2.0.7",
     "node-cron": "^3.0.0",
     "node-fetch": "^3.0.0",
-    "pg": "^8.6.0"
-  },
-  "name": "kohana",
-  "license": "ISC"
+    "pg": "^8.7.1"
+  }
 }
