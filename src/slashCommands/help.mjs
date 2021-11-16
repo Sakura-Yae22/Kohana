@@ -31,5 +31,3 @@ export const commandLogic = async itemsToImport => {
 export const description = "Lists all commands"
 
 export const category = "Info" 
-
-
