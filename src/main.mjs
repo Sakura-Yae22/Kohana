@@ -12,12 +12,17 @@ const arrayToObject1 = (arr, key) => {
     }, {})
 }
 
+
 class BotWorker extends BaseClusterWorker {
     constructor(setup) {
         super(setup);
 
         (async () => {
-            // checkExpiredservers
+
+            this.bot.createCommand({"name":"refreshcommands", "description":'⚙️ Allows manual modification of the database', type: 1});
+
+
+            checkExpiredservers
             cron.schedule("0 0 * * *", () => {checkExpiredservers(this, true)});
             cron.schedule("* * * * *", () => {checkExpiredservers(this, false)});
 
@@ -29,17 +34,18 @@ class BotWorker extends BaseClusterWorker {
                 console.log(`[Event Loaded] ${event}`);
             })
 
-            const names = arrayToObject1(await sharder.bot.getCommands(), "name")
+            const names = arrayToObject1(await this.bot.getCommands(), "name")
             const slashCommands = await fs.readdir('./slashCommands');
             slashCommands.filter(name => name.endsWith(".mjs"));
             slashCommands.map(async slashCommand => {
                 const name = slashCommand.split(".mjs")[0];
 
-                if (names[name].id) return;
+                if (names[name]) return;
+                console.log(`[Slash Command Loaded] ${name}`);           
         
                 const {description, options} = await import(`./slashCommands/${slashCommand}`);
                 this.bot.createCommand({name, description, options, type: 1});
-        });
+            });
         })();
     }
 

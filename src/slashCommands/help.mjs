@@ -16,7 +16,7 @@ export const commandLogic = async itemsToImport => {
     await Promise.all(
         slashCommand.map(async command => {
             const {category} = await import(`./${command.name}.mjs`);
-            if (!(interaction.member.id === ownerID) && category === "Owner") return;
+            if (interaction.member.id !== ownerID && category === "Owner") return;
 
             const catagoryIndex = help.embeds[0].fields.findIndex(element => element.name === category);
 

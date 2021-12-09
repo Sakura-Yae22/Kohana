@@ -14,12 +14,7 @@ export class ServiceWorker extends BaseServiceWorker {
     }
 
     async handleCommand(statement) {
-        return new Promise((resolve, reject) => {
-            pgclient.query(statement, (err, res) => {
-                if (err) reject(err);
-                resolve(res.rows);
-            });
-        })
+        return (await pgclient.query(statement))?.rows
     }
 
     async shutdown(done) {
