@@ -1,7 +1,9 @@
-export const commandLogic = async itemsToImport => {
-    const {interaction, sharder} = itemsToImport;
+import {query} from '../utils/database.mjs'
 
-    const totalBumps = await sharder.ipc.command("db", {text: 'SELECT SUM(bumps) FROM users WHERE userid = $1', values: [ interaction.data.options?.[0].value ?? interaction.member.id ]}, true);
+export const commandLogic = async itemsToImport => {
+    const {interaction} = itemsToImport;
+
+    const totalBumps = await query({text: 'SELECT SUM(bumps) FROM users WHERE userid = $1', values: [ interaction.data.options?.[0].value ?? interaction.member.id ]});
     interaction.createMessage({"embeds": [{"title": `User stats`,"description": `Total bumps: **${totalBumps[0].sum}**`, "color": 5747894}]}).catch(err => console.error("Cannot send messages to this channel", err));
 }
 

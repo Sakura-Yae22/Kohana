@@ -1,8 +1,7 @@
 {
   "type": "module",
   "dependencies": {
-    "eris": "github:DonovanDMC/eris#everything",
-    "eris-fleet": "github:danclay/eris-fleet#dev",
+    "eris": "^0.16.1",
     "figlet": "^1.5.2",
     "node-cron": "^3.0.0",
     "node-fetch": "^3.0.0",
