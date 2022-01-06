@@ -1,6 +1,7 @@
+import {query} from '../utils/database.mjs'
+
 export const commandLogic = async itemsToImport => {
-    const {sharder, interaction} = itemsToImport;    
-    const stats = await sharder.ipc.getStats();
+    const {interaction, bot} = itemsToImport;    
 
     const embeds = {
         "embeds": [
@@ -10,7 +11,7 @@ export const commandLogic = async itemsToImport => {
                 "fields": [
                     {
                         "name": "Bot",
-                        "value": `**Shard Ping: ** ${interaction.member.guild.shard.latency} MS\n**Current shard: **${sharder.bot.shards.get(sharder.bot.shards.keys().next().value).id}\n**Total shards: **${stats.shardCount}\n**Uptime: **${(Math.floor(sharder.bot.uptime / (1000 * 60 * 60 * 24))).toFixed(0)} Day(s) ${(Math.floor((sharder.bot.uptime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).toFixed(0)}:${(Math.floor((sharder.bot.uptime % (1000 * 60 * 60)) / (1000 * 60))).toFixed(0)}:${(Math.floor((sharder.bot.uptime % (1000 * 60)) / 1000)).toFixed(0)}`,
+                        "value": `**Shard Ping: ** ${interaction.member.guild.shard.latency} MS\n**Uptime: **${(Math.floor(bot.uptime / (1000 * 60 * 60 * 24))).toFixed(0)} Day(s) ${(Math.floor((bot.uptime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).toFixed(0)}:${(Math.floor((bot.uptime % (1000 * 60 * 60)) / (1000 * 60))).toFixed(0)}:${(Math.floor((bot.uptime % (1000 * 60)) / 1000)).toFixed(0)}`,
                         "inline": false
                     },
                     {
@@ -24,7 +25,7 @@ export const commandLogic = async itemsToImport => {
         "components": [
             {
                 "type": 1, 
-                "components": (await sharder.ipc.command("db", {text: 'SELECT name as label, value as url FROM links', values: []}, true)).map(({label, url})=>{return {"type": 2, "style": 5, label, url}})
+                "components": (await query({text: 'SELECT name as label, value as url FROM links', values: []})).map(({label, url})=>{return {"type": 2, "style": 5, label, url}})
             }
         ]
     };
