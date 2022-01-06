@@ -29,7 +29,7 @@ const bot = new Eris(botToken, {
 	}
 })
 
-bot.once("ready", () => {
+bot.once("ready", async () => {
 	console.log("Ready!"); // Log "Ready!"
 
 	const commands = new Map();
