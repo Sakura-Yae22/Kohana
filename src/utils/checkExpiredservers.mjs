@@ -1,6 +1,6 @@
 import {query} from '../utils/database.mjs'
 
-export default async () => {
+export default async (bot) => {
     const today = new Date();
 
     // check for out guilds to remind

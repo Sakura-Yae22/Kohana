@@ -1,6 +1,5 @@
 import Eris from 'eris'
-import cron from 'node-cron';
-import fs from 'fs/promises';
+import {readdir} from 'fs/promises';
 
 import {botToken} from './static/config.mjs';
 import checkExpiredservers from './utils/checkExpiredservers.mjs';
@@ -30,16 +29,15 @@ const bot = new Eris(botToken, {
 	}
 })
 
-bot.on("ready", async () => { // When the bot is ready
+bot.once("ready", () => {
 	console.log("Ready!"); // Log "Ready!"
-	bot.editStatus("dnd", [{ name: '/help', type: 0 }])
 
 	const commands = new Map();
 
 	(await bot.getCommands()).map(async registerdCommand => {
 		commands.set(registerdCommand.name, registerdCommand)
 	})
-	const slashCommands = (await fs.readdir('./slashCommands')).filter(name => name.endsWith(".mjs")).map(name => name.split(".")[0]);
+	const slashCommands = (await readdir('./slashCommands')).filter(name => name.endsWith(".mjs")).map(name => name.split(".")[0]);
 	let create = 0, update = 0;
 	await Promise.all(slashCommands.map(async name => {
 		const { description, options } = await import(`./slashCommands/${name}.mjs`);
@@ -55,12 +53,6 @@ bot.on("ready", async () => { // When the bot is ready
 		}
 	}));
 	console.log(`Updated ${update} commands, created ${create} commands`)
-
-});
-
-bot.once("ready", () => {
-	cron.schedule("0 0 * * *", checkExpiredservers);
-	cron.schedule("* * * * *", checkExpiredservers);
 })
 
 bot.on("error", (err) => {
@@ -68,13 +60,12 @@ bot.on("error", (err) => {
 });
 
 bot.on("interactionCreate", async (interaction) => {
-	// console.log(bot)
 	const { commandLogic } = await import(`./slashCommands/${interaction.data.name}.mjs`);
 	commandLogic({ interaction, bot });
 })
 
 bot.on("messageCreate", async message => {
-	checkExpiredservers();
+	checkExpiredservers(bot);
 	if (message.author.id == "302050872383242240") return disbord(message)
 })
 
