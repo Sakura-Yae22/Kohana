@@ -1,15 +1,12 @@
 import Eris from 'eris'
 import {readdir} from 'fs/promises';
 
-import {botToken} from './static/config.mjs';
-import checkExpiredservers from './utils/checkExpiredservers.mjs';
+import {botToken} from '/static/config.mjs';
 import {objectsEqual} from './utils/objectsEqual.mjs'
-import disbord from './utils/disbord.mjs'
 
 const bot = new Eris(botToken, {
 	intents: [
 		"guilds",
-		"guildMessages",
 	],
 	disableEvents: {
 		VOICE_STATE_UPDATE: true,
@@ -30,7 +27,7 @@ const bot = new Eris(botToken, {
 })
 
 bot.once("ready", async () => {
-	console.log("Ready!"); // Log "Ready!"
+	console.log("Ready!");
 
 	const commands = new Map();
 
@@ -62,11 +59,6 @@ bot.on("error", (err) => {
 bot.on("interactionCreate", async (interaction) => {
 	const { commandLogic } = await import(`./slashCommands/${interaction.data.name}.mjs`);
 	commandLogic({ interaction, bot });
-})
-
-bot.on("messageCreate", async message => {
-	checkExpiredservers(bot);
-	if (message.author.id == "302050872383242240") return disbord(message)
 })
 
 bot.connect();

@@ -4,26 +4,10 @@ version: "3"
 volumes:
   KohanaStatic:
     external: true
-  KohanaStaticDB:
-    external: true
 
 services:
   app:
     build: .
-    depends_on:
-      - postgres
     volumes:
       - KohanaStatic:/static
     container_name: KohanaBot
-   
-  postgres:
-    image: postgres:12-alpine
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=Password
-      - POSTGRES_DB=DBRdb
-    ports:
-      - 9229:5432
-    volumes:
-      - KohanaStaticDB:/var/lib/postgresql/data
-    container_name: KohanaDB
