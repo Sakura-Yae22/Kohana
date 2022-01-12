@@ -1,5 +1,3 @@
-import {query} from '../utils/database.mjs'
-
 export const commandLogic = async itemsToImport => {
     const {interaction, bot} = itemsToImport
     
@@ -7,7 +5,7 @@ export const commandLogic = async itemsToImport => {
         "embeds": [
             {
                 "title": "Help",
-                "description": `Below is a list of my commands. For further help you can join the [support server](${(await query({text: 'SELECT * FROM links WHERE id = $1', values: ['support']}))[0].value})`,
+                "description": `Below is a list of my commands.`,
                 "fields": [],
                 "color": 2717868,
             }

@@ -1,9 +1,7 @@
-import {query} from '../utils/database.mjs'
-
 export const commandLogic = async itemsToImport => {
     const {interaction, bot} = itemsToImport;    
-
-    const embeds = {
+    
+    interaction.createMessage({
         "embeds": [
             {
                 "title": "Info",
@@ -21,16 +19,8 @@ export const commandLogic = async itemsToImport => {
                     }
                 ]
             }
-        ],
-        "components": [
-            {
-                "type": 1, 
-                "components": (await query({text: 'SELECT name as label, value as url FROM links', values: []})).map(({label, url})=>{return {"type": 2, "style": 5, label, url}})
-            }
         ]
-    };
-    
-    interaction.createMessage(embeds).catch(err => console.error("Cannot send messages to this channel", err));        
+    }).catch(err => console.error("Cannot send messages to this channel", err));        
 }
 
 export const description = "Shows info about the bot"
