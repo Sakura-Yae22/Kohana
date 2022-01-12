@@ -1,7 +1,7 @@
 import Eris from 'eris'
 import {readdir} from 'fs/promises';
 
-import {botToken} from './static/config.mjs';
+import {botToken} from '/static/config.mjs';
 import {objectsEqual} from './utils/objectsEqual.mjs'
 
 const bot = new Eris(botToken, {
@@ -27,7 +27,7 @@ const bot = new Eris(botToken, {
 })
 
 bot.once("ready", async () => {
-	console.log("Ready!"); // Log "Ready!"
+	console.log("Ready!");
 
 	const commands = new Map();
 
