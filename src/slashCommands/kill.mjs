@@ -1,7 +1,5 @@
 import fetch from 'node-fetch'
-export const commandLogic = async itemsToImport => {
-    const {interaction} = itemsToImport;
-
+export const commandLogic = async interaction => {
     if (!interaction.data.resolved) return interaction.createMessage({"flags":64, "content": "Please mention a user."}).catch(err => console.error("Cannot send messages to this channel", err));
     const mentionedUserID = interaction.data.resolved.users.keys().next().value
     if (mentionedUserID === interaction.member.user.id) return interaction.createMessage({"flags":64, "content": "You cant kill yourself."}).catch(err => console.error("Cannot send messages to this channel", err));

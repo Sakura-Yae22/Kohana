@@ -1,8 +1,7 @@
 import fetch from 'node-fetch'
 
-export const commandLogic = async itemsToImport => {
-    const {interaction} = itemsToImport;
-
+export const commandLogic = async interaction => {
+    
     const senko = await fetch('https://purrbot.site/api/img/sfw/senko/img');
     const senkoJSON = await senko.json();
     interaction.createMessage([{

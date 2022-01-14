@@ -1,8 +1,6 @@
 import fetch from 'node-fetch'
 
-export const commandLogic = async itemsToImport => {
-    const {interaction} = itemsToImport;
-    
+export const commandLogic = async interaction => {    
     const wall = await fetch('https://wallhaven.cc/api/v1/search?categories=010&sorting=random')
     const wallJSON = await wall.json()
 

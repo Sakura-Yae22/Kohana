@@ -1,8 +1,6 @@
 import fetch from 'node-fetch'
 
-export const commandLogic = async itemsToImport => {
-  const { interaction } = itemsToImport;
-
+export const commandLogic = async interaction => {
   const sub = interaction.data.options[0].value
   const subreddit = sub.toLowerCase().includes("r/") ? sub : `r/${sub}`;
   const sort = interaction.data.options[1]?.value ?? "top" 

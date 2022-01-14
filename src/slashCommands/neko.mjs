@@ -1,8 +1,6 @@
 import fetch from 'node-fetch'
 
-export const commandLogic = async itemsToImport => {
-    const {interaction} = itemsToImport;
-
+export const commandLogic = async interaction => {
     const ranChance = Number((Math.random() * 1).toFixed(1));    
     const nekoJSON = await (await fetch(`https://purrbot.site/api/img/sfw/neko/${ranChance>=0.5 ? 'img' : 'gif'}`)).json()
 

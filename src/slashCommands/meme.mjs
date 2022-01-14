@@ -1,8 +1,6 @@
 import fetch from 'node-fetch'
 
-export const commandLogic = async itemsToImport => {
-  const { interaction } = itemsToImport;
-
+export const commandLogic = async interaction => {
   const subs = ["memes", "meme", "dankmemes"]
   const meme = await fetch(`https://api.reddit.com/r/${subs[Math.floor((Math.random() * subs.length - 1) + 1)]}/random`);
   const memeJSON = await meme.json();

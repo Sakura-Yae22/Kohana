@@ -58,7 +58,7 @@ bot.on("error", (err) => {
 
 bot.on("interactionCreate", async (interaction) => {
 	const { commandLogic } = await import(`./slashCommands/${interaction.data.name}.mjs`);
-	commandLogic({ interaction, bot });
+	commandLogic(interaction);
 })
 
 bot.connect();

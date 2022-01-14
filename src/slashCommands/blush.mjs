@@ -1,8 +1,6 @@
 import fetch from 'node-fetch'
 
-export const commandLogic = async itemsToImport => {
-    const {interaction} = itemsToImport;
-
+export const commandLogic = async interaction => {
     const blush = await fetch("https://shiro.gg/api/images/blush");
     const blushJSON = await blush.json();
 

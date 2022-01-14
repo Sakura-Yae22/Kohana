@@ -1,7 +1,6 @@
 import figlet from 'figlet'
 
-export const commandLogic = async itemsToImport => {
-    const { interaction } = itemsToImport;
+export const commandLogic = async interaction => {
     figlet(interaction.data.options[0].value, function (err, ascii) {
         if (err) return interaction.createMessage({"flags":64, "content": "error making ASCII art"}).catch(err => console.error("Cannot send messages to this channel", err));
         interaction.createMessage((ascii.length + 2 > 2000) ? 'The ASCII art is too big.' : "```" + ascii + "```").catch(err => console.error("Cannot send messages to this channel", err));

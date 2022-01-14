@@ -1,8 +1,6 @@
 import fetch from 'node-fetch'
 
-export const commandLogic = async itemsToImport => {
-    const {interaction} = itemsToImport;
-
+export const commandLogic = async interaction => {
     const pout = await fetch("https://shiro.gg/api/images/cry");
     const poutJSON = await pout.json()
 

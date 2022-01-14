@@ -1,7 +1,6 @@
 import fetch from 'node-fetch'
 
-export const commandLogic = async itemsToImport => {
-    const {interaction} = itemsToImport;
+export const commandLogic = async interaction => {
 
     const advice = await fetch('https://api.adviceslip.com/advice');
     const adviceJSON = await advice.json();

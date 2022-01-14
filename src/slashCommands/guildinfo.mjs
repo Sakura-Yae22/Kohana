@@ -1,6 +1,4 @@
-export const commandLogic = async itemsToImport => {
-  const { interaction } = itemsToImport;
-
+export const commandLogic = async interaction => {
   const guild = interaction.member.guild;
 
   interaction.createMessage({

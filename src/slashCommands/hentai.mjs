@@ -1,8 +1,6 @@
 import fetch from 'node-fetch'
 
-export const commandLogic = async itemsToImport => {
-    const { interaction } = itemsToImport;
-
+export const commandLogic = async interaction => {
     if(!interaction.channel.nsfw) return interaction.createMessage({"flags":64, "content": "This channel is not suitable NSFW content"}).catch(err => console.error("Cannot send messages to this channel", err));
 
     const hentai = await fetch('https://api.numselli.xyz/hentai/random');
