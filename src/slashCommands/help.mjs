@@ -25,7 +25,7 @@ export const commandLogic = async interaction => {
 
     }))
 
-    interaction.createMessage(help).catch(err => console.error("Cannot send messages to this channel"));
+    interaction.createMessage(help).catch(err => {});
 }
 
 export const description = "Lists all commands"

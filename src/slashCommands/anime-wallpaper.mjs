@@ -12,7 +12,7 @@ export const commandLogic = async interaction => {
         "image": {
             "url": wallJSON.data[Math.floor(Math.random() * wallJSON.data.length)].path
         }
-    }]}).catch(err => console.error("Cannot send messages to this channel", err));
+    }]}).catch(err => {});
 }
 
 export const description = "Shows a random anime wallpaper"

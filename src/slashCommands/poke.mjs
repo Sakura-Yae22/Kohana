@@ -1,9 +1,9 @@
 import fetch from 'node-fetch'
 
 export const commandLogic = async interaction => {
-    if (!interaction.data.resolved) return interaction.createMessage({"flags":64, "content": "Please mention a user."}).catch(err => console.error("Cannot send messages to this channel", err));
+    if (!interaction.data.resolved) return interaction.createMessage({"flags":64, "content": "Please mention a user."}).catch(err => {});
     const mentionedUserID = interaction.data.resolved.users.keys().next().value
-    if (mentionedUserID === interaction.member.user.id) return interaction.createMessage({"flags":64, "content": "You cant poke yourself."}).catch(err => console.error("Cannot send messages to this channel", err));
+    if (mentionedUserID === interaction.member.user.id) return interaction.createMessage({"flags":64, "content": "You cant poke yourself."}).catch(err => {});
 
     const ranChance = Number((Math.random() * 1).toFixed(1));        
     const poke = await fetch(ranChance>=0.5 ? 'https://purrbot.site/api/img/sfw/poke/gif' : 'https://nekos.best/api/v1/poke');
@@ -17,7 +17,7 @@ export const commandLogic = async interaction => {
                 "url": pokeJSON.link
             }
         }]
-    }).catch(err => console.error("Cannot send messages to this channel", err));
+    }).catch(err => {});
 }
 
 export const description = "Poke a user"

@@ -7,7 +7,7 @@ export const commandLogic = async interaction => {
                 "url": `https://minecraftskinstealer.com/achievement/2/Achievement%20Unlocked/${interaction.data.options[0].value}`
             }
         }]
-    }).catch(err => console.error("Cannot send messages to this channel", err));
+    }).catch(err => {});
 }
 
 export const description = "Creates a Minecraft like achievement banner"

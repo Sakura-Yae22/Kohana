@@ -12,7 +12,7 @@ export const commandLogic = async interaction => {
                 "url": senkoJSON.link
             }
         }
-    }]).catch(err => console.error("Cannot send messages to this channel", err));
+    }]).catch(err => {});
 }
 
 export const description = "Show an image of The Helpful Fox Senko-san"

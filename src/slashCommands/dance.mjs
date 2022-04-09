@@ -11,7 +11,7 @@ export const commandLogic = async interaction => {
                 "url": danceJSON.link
             }
         }]
-    }).catch(err => console.error("Cannot send messages to this channel", err));
+    }).catch(err => {});
 }
 
 export const description = "Show off some cool dance moves"

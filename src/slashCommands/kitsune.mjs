@@ -11,7 +11,7 @@ export const commandLogic = async interaction => {
                 "url": kitsuneJSON.link
             }
         }]
-    }).catch(err => console.error("Cannot send messages to this channel", err));
+    }).catch(err => {});
 }
 
 export const description = "Cute anime fox";

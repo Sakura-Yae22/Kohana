@@ -7,12 +7,12 @@ export const commandLogic = async interaction => {
 
   const aboutSub = await fetch(`https://api.reddit.com/${subreddit}/about`);
   const aboutSubJSON = await aboutSub.json();
-  if (aboutSubJSON.message === "Not Found") return interaction.createMessage({"flags":64, "embeds": [{ "title": `Error`, "description": 'This subreddit cant be found.', "color": 2717868 }] }).catch(err => console.error("Cannot send messages to this channel", err));
-  if (aboutSubJSON.data.over_18 && !interaction.member.guild.channels.get(interaction.channelID).nsfw) return interaction.createMessage({"flags":64, "embeds": [{"title": `Error`,"description": 'This subreddit is marked 18+ and this channel is not suitable for such content.',"color": 2717868}]}).catch(err => console.error("Cannot send messages to this channel", err));
+  if (aboutSubJSON.message === "Not Found") return interaction.createMessage({"flags":64, "embeds": [{ "title": `Error`, "description": 'This subreddit cant be found.', "color": 2717868 }] }).catch(err => {});
+  if (aboutSubJSON.data.over_18 && !interaction.member.guild.channels.get(interaction.channelID).nsfw) return interaction.createMessage({"flags":64, "embeds": [{"title": `Error`,"description": 'This subreddit is marked 18+ and this channel is not suitable for such content.',"color": 2717868}]}).catch(err => {});
 
   const reddit = await fetch(`https://api.reddit.com/${subreddit}/${sort}?limit=1`);
   const redditJSON = await reddit.json();
-  if (redditJSON.data.children[0].data.over_18 && !interaction.member.guild.channels.get(interaction.channelID).nsfw) return interaction.createMessage({"flags":64, "embeds": [{"title": `Error`,"description": 'This post is marked 18+ and this channel is not suitable for such content.',"color": 2717868}]}).catch(err => console.error("Cannot send messages to this channel", err));
+  if (redditJSON.data.children[0].data.over_18 && !interaction.member.guild.channels.get(interaction.channelID).nsfw) return interaction.createMessage({"flags":64, "embeds": [{"title": `Error`,"description": 'This post is marked 18+ and this channel is not suitable for such content.',"color": 2717868}]}).catch(err => {});
 
   interaction.createMessage(
     {
@@ -31,7 +31,7 @@ export const commandLogic = async interaction => {
         }
       ]
     }
-  ).catch(err => console.error("Cannot send messages to this channel", err));
+  ).catch(err => {});
 }
 
 export const description = "Shows a post from a subreddit"

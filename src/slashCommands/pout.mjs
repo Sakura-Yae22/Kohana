@@ -12,7 +12,7 @@ export const commandLogic = async interaction => {
                 "url": poutJSON.url
             }
         }]
-    }).catch(err => console.error("Cannot send messages to this channel", err));
+    }).catch(err => {});
 }
 
 export const description = "It's ok to pout sometimes"

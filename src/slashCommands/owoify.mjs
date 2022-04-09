@@ -3,7 +3,7 @@ import fetch from 'node-fetch'
 export const commandLogic = async interaction => {
   const owo = await (await fetch(`https://nekos.life/api/v2/owoify?text=${interaction.data.options[0].value}`)).json()
 
-  interaction.createMessage(owo.owo).catch(err => console.error("Cannot send messages to this channel", err));
+  interaction.createMessage(owo.owo).catch(err => {});
 }
 
 export const description = "Sometimes you just nyeed to owoify youw speech"

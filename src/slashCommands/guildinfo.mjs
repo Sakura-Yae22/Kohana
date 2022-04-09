@@ -56,7 +56,7 @@ export const commandLogic = async interaction => {
         }
       ]
     }]
-  }).catch(err => console.error("Cannot send messages to this channel", err));
+  }).catch(err => {});
 }
 
 export const description = "Shows info about the about the guild"
