@@ -1,7 +1,7 @@
 import fetch from 'node-fetch'
 
 export const commandLogic = async interaction => {
-    const pout = await fetch("https://shiro.gg/api/images/cry");
+    const pout = await fetch("https://nekos.best/api/v2/cry");
     const poutJSON = await pout.json()
 
     interaction.createMessage( {
@@ -9,7 +9,7 @@ export const commandLogic = async interaction => {
             "title": `${interaction.member.user.username} pouted`,
             "color": 2717868,
             "image": {
-                "url": poutJSON.url
+                "url": poutJSON.results[0].url
             }
         }]
     }).catch(err => {});
