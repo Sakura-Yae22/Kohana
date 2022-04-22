@@ -1,5 +1,3 @@
-import fetch from 'node-fetch'
-
 export const commandLogic = async interaction => {
   const sub = interaction.data.options[0].value
   const subreddit = sub.toLowerCase().includes("r/") ? sub : `r/${sub}`;

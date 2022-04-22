@@ -1,5 +1,3 @@
-import fetch from 'node-fetch'
-
 export const commandLogic = async interaction => {
     const holo = await fetch('https://purrbot.site/api/img/sfw/holo/img');
     const holoJSON = await holo.json();

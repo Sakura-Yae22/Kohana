@@ -1,5 +1,3 @@
-import fetch from 'node-fetch'
-
 export const commandLogic = async interaction => {
   const owo = await (await fetch(`https://nekos.life/api/v2/owoify?text=${interaction.data.options[0].value}`)).json()
 

@@ -1,5 +1,3 @@
-import fetch from "node-fetch"
-
 export const commandLogic = async interaction => {
     const waifu = await fetch("https://nekos.life/api/v2/img/waifu");
     const waifuJSON = await waifu.json()

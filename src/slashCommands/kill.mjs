@@ -1,4 +1,3 @@
-import fetch from 'node-fetch'
 export const commandLogic = async interaction => {
     if (!interaction.data.resolved) return interaction.createMessage({"flags":64, "content": "Please mention a user."}).catch(err => {});
     const mentionedUserID = interaction.data.resolved.users.keys().next().value

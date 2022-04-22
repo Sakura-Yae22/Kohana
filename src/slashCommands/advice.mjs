@@ -1,5 +1,3 @@
-import fetch from 'node-fetch'
-
 export const commandLogic = async interaction => {
 
     const advice = await fetch('https://api.adviceslip.com/advice');

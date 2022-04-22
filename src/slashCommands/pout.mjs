@@ -1,5 +1,3 @@
-import fetch from 'node-fetch'
-
 export const commandLogic = async interaction => {
     const pout = await fetch("https://nekos.best/api/v2/cry");
     const poutJSON = await pout.json()

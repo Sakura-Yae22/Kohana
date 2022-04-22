@@ -1,4 +1,3 @@
-import fetch from 'node-fetch'
 export const commandLogic = async interaction => {
     const dance = await fetch('https://purrbot.site/api/img/sfw/dance/gif');
     const danceJSON = await dance.json();

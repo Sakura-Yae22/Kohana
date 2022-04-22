@@ -1,5 +1,3 @@
-import fetch from 'node-fetch'
-
 export const commandLogic = async interaction => {
     const fact = await fetch('https://uselessfacts.jsph.pl/random.json?language=en');
     const factJSON = await fact.json();

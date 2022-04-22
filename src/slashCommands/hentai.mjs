@@ -1,5 +1,3 @@
-import fetch from 'node-fetch'
-
 export const commandLogic = async interaction => {
     if(!interaction.channel.nsfw) return interaction.createMessage({"flags":64, "content": "This channel is not suitable NSFW content"}).catch(err => {});
 

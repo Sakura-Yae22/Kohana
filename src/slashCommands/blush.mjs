@@ -1,5 +1,3 @@
-import fetch from 'node-fetch'
-
 export const commandLogic = async interaction => {
     const blush = await fetch("https://nekos.best/api/v2/blush");
     const blushJSON = await blush.json();
