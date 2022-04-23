@@ -1,7 +1,4 @@
-
-export const commandLogic = async itemsToImport => {
-    const { interaction } = itemsToImport;
-
+export const commandLogic = async interaction => {
     interaction.createMessage({
         "embeds": [{
             "title": `${interaction.member.user.username} has earned the achievement ${interaction.data.options[0].value}`,
@@ -10,7 +7,7 @@ export const commandLogic = async itemsToImport => {
                 "url": `https://minecraftskinstealer.com/achievement/2/Achievement%20Unlocked/${interaction.data.options[0].value}`
             }
         }]
-    }).catch(err => console.error("Cannot send messages to this channel", err));
+    }).catch(err => {});
 }
 
 export const description = "Creates a Minecraft like achievement banner"

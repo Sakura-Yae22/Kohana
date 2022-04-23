@@ -1,8 +1,4 @@
-import fetch from "node-fetch"
-
-export const commandLogic = async itemsToImport => {
-    const {interaction} = itemsToImport;
-
+export const commandLogic = async interaction => {
     const fox = await fetch("https://nekos.life/api/v2/img/fox_girl");
     const foxJSON = await fox.json()
 
@@ -14,7 +10,7 @@ export const commandLogic = async itemsToImport => {
                 "url": foxJSON.url
             }
         }]
-    }).catch(err => console.error("Cannot send messages to this channel", err));
+    }).catch(err => {});
 }
 
 export const description = "Shows a random fox-girl image"

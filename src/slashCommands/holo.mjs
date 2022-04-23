@@ -1,7 +1,4 @@
-import fetch from 'node-fetch'
-
-export const commandLogic = async itemsToImport => {
-    const { interaction } = itemsToImport;
+export const commandLogic = async interaction => {
     const holo = await fetch('https://purrbot.site/api/img/sfw/holo/img');
     const holoJSON = await holo.json();
     interaction.createMessage({
@@ -14,7 +11,7 @@ export const commandLogic = async itemsToImport => {
                 }
             }
         ]
-    }).catch(err => console.error("Cannot send messages to this channel", err));
+    }).catch(err => {});
 }
 
 export const description = "Get an image of Holo"

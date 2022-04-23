@@ -1,8 +1,4 @@
-import fetch from "node-fetch"
-
-export const commandLogic = async itemsToImport => {
-    const {interaction} = itemsToImport;
-
+export const commandLogic = async interaction => {
     const waifu = await fetch("https://nekos.life/api/v2/img/waifu");
     const waifuJSON = await waifu.json()
 
@@ -12,7 +8,7 @@ export const commandLogic = async itemsToImport => {
         "image": {
             "url": waifuJSON.url
         }
-    }]}).catch(err => console.error("Cannot send messages to this channel", err));
+    }]}).catch(err => {});
 }
 
 export const description = "Shows a random waifu image"

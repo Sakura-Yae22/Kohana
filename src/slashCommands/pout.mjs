@@ -1,9 +1,5 @@
-import fetch from 'node-fetch'
-
-export const commandLogic = async itemsToImport => {
-    const {interaction} = itemsToImport;
-
-    const pout = await fetch("https://shiro.gg/api/images/cry");
+export const commandLogic = async interaction => {
+    const pout = await fetch("https://nekos.best/api/v2/cry");
     const poutJSON = await pout.json()
 
     interaction.createMessage( {
@@ -11,10 +7,10 @@ export const commandLogic = async itemsToImport => {
             "title": `${interaction.member.user.username} pouted`,
             "color": 2717868,
             "image": {
-                "url": poutJSON.url
+                "url": poutJSON.results[0].url
             }
         }]
-    }).catch(err => console.error("Cannot send messages to this channel", err));
+    }).catch(err => {});
 }
 
 export const description = "It's ok to pout sometimes"

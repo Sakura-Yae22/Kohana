@@ -1,6 +1,4 @@
-export const commandLogic = async itemsToImport => {
-    const {interaction, bot} = itemsToImport
-    
+export const commandLogic = async (interaction, bot) => {    
     const help = {
         "embeds": [
             {
@@ -8,24 +6,27 @@ export const commandLogic = async itemsToImport => {
                 "description": `Below is a list of my commands.`,
                 "fields": [],
                 "color": 2717868,
+                "footer":{
+                    "text":"Made by numselli#6964  ( https://numselli.xyz )"
+                }
             }
         ]
     }
 
-    const slashCommand = await bot.getCommands();
-    await Promise.all(
-        slashCommand.map(async command => {
-            const {category} = await import(`./${command.name}.mjs`);
-            const catagoryIndex = help.embeds[0].fields.findIndex(element => element.name === category);
+    
+    await Promise.all((await bot.getCommands()).map(async command => {
+        const file = await import(`./${command.name}.mjs`).catch(err=>{false});
+        if(!file) return;
+        const {category} = file;
+        const catagoryIndex = help.embeds[0].fields.findIndex(element => element.name === category);
+    
+        if (catagoryIndex == -1) help.embeds[0].fields.push({ "name": category, "value": `\`\`\`\n${command.name}\n\`\`\``, "inline": true })
+        else help.embeds[0].fields[catagoryIndex].value = `${help.embeds[0].fields[catagoryIndex].value.slice(0, -3)}${command.name}\n${help.embeds[0].fields[catagoryIndex].value.slice(-3)}`;  
+    }))
 
-            if (catagoryIndex == -1) help.embeds[0].fields.push({ "name": category, "value": `\`\`\`\n${command.name}\n\`\`\``, "inline": true })
-            else help.embeds[0].fields[catagoryIndex].value = `${help.embeds[0].fields[catagoryIndex].value.slice(0, -3)}${command.name}\n${help.embeds[0].fields[catagoryIndex].value.slice(-3)}`;  
-        })
-    )
-
-    interaction.createMessage(help).catch(err => console.error("Cannot send messages to this channel"));
+    interaction.createMessage(help).catch(err => {});
 }
 
 export const description = "Lists all commands"
 
-export const category = "Info" 
+export const category = "Info"

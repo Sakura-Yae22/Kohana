@@ -1,7 +1,4 @@
-import fetch from 'node-fetch'
-
-export const commandLogic = async itemsToImport => {
-    const {interaction} = itemsToImport;
+export const commandLogic = async interaction => {
     const kitsune = await fetch('https://purrbot.site/api/img/sfw/kitsune/img');
     const kitsuneJSON = await kitsune.json();
     interaction.createMessage({
@@ -12,7 +9,7 @@ export const commandLogic = async itemsToImport => {
                 "url": kitsuneJSON.link
             }
         }]
-    }).catch(err => console.error("Cannot send messages to this channel", err));
+    }).catch(err => {});
 }
 
 export const description = "Cute anime fox";

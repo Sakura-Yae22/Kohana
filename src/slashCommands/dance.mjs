@@ -1,7 +1,4 @@
-import fetch from 'node-fetch'
-export const commandLogic = async itemsToImport => {
-    const {interaction} = itemsToImport;
-
+export const commandLogic = async interaction => {
     const dance = await fetch('https://purrbot.site/api/img/sfw/dance/gif');
     const danceJSON = await dance.json();
 
@@ -13,7 +10,7 @@ export const commandLogic = async itemsToImport => {
                 "url": danceJSON.link
             }
         }]
-    }).catch(err => console.error("Cannot send messages to this channel", err));
+    }).catch(err => {});
 }
 
 export const description = "Show off some cool dance moves"

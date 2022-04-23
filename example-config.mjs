@@ -1,1 +1,1 @@
-export const botToken = ""
+export const botToken = "Bot Your_token"

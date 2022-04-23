@@ -1,10 +1,8 @@
-import fetch from 'node-fetch'
-export const commandLogic = async itemsToImport => {
-    const {interaction} = itemsToImport;
-
-    if (!interaction.data.resolved) return interaction.createMessage({"flags":64, "content": "Please mention a user."}).catch(err => console.error("Cannot send messages to this channel", err));
+export const commandLogic = async interaction => {
+    
+    if (!interaction.data.resolved) return interaction.createMessage({"flags":64, "content": "Please mention a user."}).catch(err => {});
     const mentionedUserID = interaction.data.resolved.users.keys().next().value
-    if (mentionedUserID === interaction.member.user.id) return interaction.createMessage({"flags":64, "content": "You cant hug yourself."}).catch(err => console.error("Cannot send messages to this channel", err));
+    if (mentionedUserID === interaction.member.user.id) return interaction.createMessage({"flags":64, "content": "You cant hug yourself."}).catch(err => {});
     
     const ranChance = Number((Math.random() * 1).toFixed(1));
     const hug = await fetch((ranChance >= 0.5) ? 'https://purrbot.site/api/img/sfw/hug/gif' : "https://anime-api.hisoka17.repl.co/img/hug");
@@ -18,7 +16,7 @@ export const commandLogic = async itemsToImport => {
                 "url": hugJSON[ranChance >= 0.5 ? "link" : "url"]
             }
         }]
-    }).catch(err => console.error("Cannot send messages to this channel", err));
+    }).catch(err => {});
 }
 
 export const description = "Give someone a hug"
