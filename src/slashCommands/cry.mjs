@@ -7,7 +7,7 @@ export const commandLogic = async interaction => {
             "title": `${interaction.member.user.username} cried`,
             "color": 2717868,
             "image": {
-                "url": cryJSON.restults[0].url
+                "url": cryJSON.results[0].url
             }
         }]
     }).catch(err => {});

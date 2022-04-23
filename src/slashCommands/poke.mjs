@@ -4,7 +4,7 @@ export const commandLogic = async interaction => {
     if (mentionedUserID === interaction.member.user.id) return interaction.createMessage({"flags":64, "content": "You cant poke yourself."}).catch(err => {});
 
     const ranChance = Number((Math.random() * 1).toFixed(1));        
-    const poke = await fetch(ranChance>=0.5 ? 'https://purrbot.site/api/img/sfw/poke/gif' : 'https://nekos.best/api/v1/poke');
+    const poke = await fetch(ranChance>=0.5 ? 'https://purrbot.site/api/img/sfw/poke/gif' : 'https://nekos.best/api/v2/poke');
     const pokeJSON = await poke.json();
 
     interaction.createMessage({
@@ -12,7 +12,7 @@ export const commandLogic = async interaction => {
             "title": `${interaction.data.resolved.users.get(mentionedUserID).username} was poked by ${interaction.member.user.username}`,
             "color": 2717868,
             "image": {
-                "url": pokeJSON.link
+                "url": ranChance>=0.5 ? pokeJSON.link : pokeJSON.results[0].url
             }
         }]
     }).catch(err => {});
