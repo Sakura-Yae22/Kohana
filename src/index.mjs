@@ -1,7 +1,7 @@
 import Eris from 'eris'
 import {readdir} from 'fs/promises';
 
-import {botToken} from './static/config.mjs';
+import {botToken} from '/static/config.mjs';
 
 const bot = new Eris(botToken, {
 	intents: [
