@@ -1,7 +1,7 @@
 import Eris from 'eris'
 import {readdir} from 'fs/promises';
 
-import {botToken} from '/static/config.mjs';
+import {botToken} from './static/config.mjs';
 
 const bot = new Eris(botToken, {
 	intents: [
@@ -32,7 +32,7 @@ bot.on("error", (err) => {
 
 bot.on("interactionCreate", async (interaction) => {
 	const { commandLogic } = await import(`./slashCommands/${interaction.data.name}.mjs`);
-	commandLogic(interaction);
+	commandLogic(interaction, bot);
 })
 
 bot.connect();
