@@ -12,17 +12,21 @@ const bot = new Eris(botToken, {
 bot.once("ready", async () => {
 	console.log("Ready!");
 	
-	const slashCommands = (await readdir('./slashCommands')).filter(name => name.endsWith(".mjs")).map(async cmdName => {
-		const { description, options } = await import(`./slashCommands/${cmdName}.mjs`);
+	const slashCommands = (await readdir('./slashCommands')).filter(name => name.endsWith(".mjs"))
+	
+	const commands = await Promise.all(slashCommands.map(async cmdName => {
+		const { description, options } = await import(`./slashCommands/${cmdName}`);
 		return {
-			name: cmdName,
+			name: cmdName.replace(".mjs", ""),
 			description,
 			options,
 			type: 1
 		}
-	});
+	}));
 
-	console.log(slashCommands)
+	bot.bulkEditCommands(commands).catch(err=>{
+		console.log("error updateing commands")
+	})
 })
 
 bot.on("error", (err) => {
