@@ -10,4 +10,4 @@ export const commandLogic = async interaction => {
 
 export const description = "Bite someone"
 
-export const category = "Actions" 
+export const category = "Fun" 
