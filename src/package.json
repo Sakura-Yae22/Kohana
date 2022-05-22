@@ -2,6 +2,6 @@
   "type": "module",
   "dependencies": {
     "eris": "^0.16.1",
-    "figlet": "^1.5.2",
+    "figlet": "^1.5.2"
   }
 }

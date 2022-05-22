@@ -11,19 +11,18 @@ const bot = new Eris(botToken, {
 
 bot.once("ready", async () => {
 	console.log("Ready!");
-
-	const commands = new Map(
-		await Promise.all(
-			(await bot.getCommands()).map((command) => [command.name, command])
-		)
-	);
 	
-	const slashCommands = (await readdir('./slashCommands')).filter(name => name.endsWith(".mjs")).map(name => name.split(".")[0]);
-	slashCommands.map(async name => {
-		const { description, options } = await import(`./slashCommands/${name}.mjs`);
-		if (commands.has(name)) bot.editCommand(commands.get(name).id, {name, description, options})
-		else bot.createCommand({ name, description, options, type: 1 });
-	})
+	const slashCommands = (await readdir('./slashCommands')).filter(name => name.endsWith(".mjs")).map(async cmdName => {
+		const { description, options } = await import(`./slashCommands/${cmdName}.mjs`);
+		return {
+			name: cmdName,
+			description,
+			options,
+			type: 1
+		}
+	});
+
+	console.log(slashCommands)
 })
 
 bot.on("error", (err) => {
