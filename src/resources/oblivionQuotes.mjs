@@ -44,4 +44,11 @@ export const oblivionQuotes = [
     "Home is where you hang your enemy's head!",
     "I’ll not have anything to do with you, BEGONE!",
     "THEN PAY WITH YOUR BLOOD!!"
+    "Aw, did somebody steal your sweet roll?"
+    "You'll make a fine rug, cat!"
+    "Giant Spiders? What's next? Giant Snakes?"
+    "I got to thinking... Maybe I'm the Dragonborn and I just don't know it yet!"
+    "You're either the bravest person i've ever met... or the biggest fool."
+    “Don’t suppose you’d enchant my sword? Dull old blade can barely cut butter.”
+    “The meals I serve aren’t exactly what I’d call a Jarl’s feast, but they’ll fill your belly.”
 ]
