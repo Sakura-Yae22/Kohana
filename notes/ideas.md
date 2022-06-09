@@ -35,3 +35,4 @@ https://www.npmjs.com/package/anime-ext
 - leveling
 - hex color info
 - cowfortune
+- Auto Publisher
