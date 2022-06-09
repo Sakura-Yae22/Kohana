@@ -25,8 +25,8 @@ export const commandLogic = async interaction => {
           "inline": true
         },
         {
-          "name": "Region",
-          "value": `\`${guild.region}\``,
+          "name": "Stickers",
+          "value": `\`${guild.stickers.length}\``,
           "inline": true
         },
         {

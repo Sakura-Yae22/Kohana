@@ -11,7 +11,7 @@ export const commandLogic = async interaction => {
             "title": `${interaction.data.resolved.users.get(mentionedUserID).username} was punched by ${interaction.member.user.username}`,
             "color": 2717868,
             "image": {
-                "url": punchJSON.link
+                "url": punchJSON.url
             }
         }]
     }).catch(err => {});
